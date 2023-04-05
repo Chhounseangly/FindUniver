@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-
-
 const navigation = [
   { name: "ទំព័រដើម", href: "/home" },
   { name: "មុខជំនាញ", href: "/major" },
@@ -94,6 +92,7 @@ export function HeaderBar() {
                     />
                   </svg>
                 </a>
+
                 {!isMenuOpen && (
                   <div className="space-x-2 hidden sm:flex">
                     {Authentication()}
@@ -120,7 +119,6 @@ export function HeaderBar() {
                 </a>
               </div>
             </div>
-
             {/* Responsive navbar  */}
             <a
               className="navbar-burger self-center mr-12 xl:hidden"
@@ -149,14 +147,12 @@ export function HeaderBar() {
           </nav>
         </section>
       </div>
-
       {/* if click icon search will show */}
       {isSearchOpen && (
         <div className="w-screen bg-gray-900 justify-center flex ">
           {SearchBar()}
         </div>
       )}
-
       {/* reposive toggleMenu */}
       {isMenuOpen && (
         <div className="bg-black h-screen flex justify-center">
