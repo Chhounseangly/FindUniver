@@ -1,7 +1,81 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Battambang&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+    --primary: #000;
+    --secondary: #fff;
+  }
+
+  /* .effect-3::after {
+    content: "";
+    display: block;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      hsla(0, 100%, 76%, 1) 0%,
+      hsla(237, 100%, 73%, 1) 100%
+    );
+    z-index: -1;
+  }
+
+  .major {
+    background: white;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } */
+
+
+  
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: 5px;
+    border: 3px solid var(--primary);
+  }
+  .swiper-button-prev::after {
+    opacity: 80%;
+    left: 0;
+  }
+  .swiper-button-next::after{
+    opacity: 80% ;
+    right: 0;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

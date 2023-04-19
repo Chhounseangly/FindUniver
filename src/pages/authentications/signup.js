@@ -1,59 +1,244 @@
-export default function SignUp(){
-    return (
-        <>
-        <div className="flex h-screen w-screen items-center justify-center bg-slate-500">
-            <div className="shadow-2xl px-12 py-20 rounded bg-white ">
-            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <svg fill="currentColor" class="w-5 h-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path clip-rule="evenodd" fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"></path>
-            </svg>
-            </button>
-                <div>
-                    <img className="mx-auto h-12 w-auto " src="/logo.png" alt="logo"/>
-                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-                </div>
-                <form className="mt-8 space-y-6" action="#" method="POST">
-                    <input type="hidden" name="remember" value="true"/>
-                    <div className=" shadow-sm space-y-2 ">
-                        <div>
-                        <label for="email-address" className="sr-only">Email address</label>
-                        <input  name="email" type="email" autocomplete="email" required className="relative block w-full rounded-t-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded p-2 " placeholder="Email address"/>
-                        </div>
-                        <div>
-                        <label for="password" className="sr-only">Password</label>
-                        <input  name="password" type="password" autocomplete="current-password" required className="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded p-2" placeholder="Password"/>
-                    </div>
-            </div>
-            <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                    <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
-                    <label for="remember-me" className="ml-2 block text-sm text-gray-900">Remember me</label>
-                </div>
+import Link from "next/link";
+import Router from "next/router";
 
-                <div className="text-sm">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+export default function SignUp() {
+  return (
+    <>
+      <section className="font-poppins">
+        <div className="relative z-10 flex items-center h-screen py-16 overflow-hidden lg:bg-blue-900 lg:dark:bg-gray-800 2xl:py-44">
+          <div className="absolute top-0 left-0 w-full h-full lg:bg-blue-900 dark:bg-bg-gray-700 lg:bottom-0 lg:h-auto lg:w-4/12">
+            <img
+              src="https://i.postimg.cc/XJBZvxHp/first.jpg"
+              alt=""
+              className="hidden object-cover w-full h-full lg:block"
+            />
+          </div>
+          <div className="relative max-w-6xl px-4 mx-auto">
+          {/* btn return */}
+          <button onClick={() => Router.back()} type="button" className="m-2 absolute text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+            </svg>
+          </button>
+            <div className="justify-center max-w-xl mx-auto lg:max-w-5xl">
+              <div className="flex flex-wrap items-center -mx-4">
+                <div className="w-full px-4 lg:w-2/5">
+                  <div className="z-10 w-full p-12 shadow-md bg-gray-50 dark:bg-gray-900 rounded-lg ">
+                    <h2 className="text-xl font-bold leading-tight mb-7 md:text-2xl dark:text-gray-300">
+                      Sign Up to your account
+                    </h2>
+                    <form action="" className="mt-4">
+                      <div>
+                        <label
+                          for=""
+                          className="block text-gray-700 dark:text-gray-300"
+                        >
+                          UserName *
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-3 mt-2 bg-gray-200 rounded-lg dark:text-gray-100 dark:bg-gray-800"
+                          name=""
+                          placeholder="Enter username"
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <label
+                          for=""
+                          className="block text-gray-700 dark:text-gray-300"
+                        >
+                          Email *
+                        </label>
+                        <input
+                          type="email"
+                          className="w-full px-4 py-3 mt-2 bg-gray-200 rounded-lg dark:text-gray-100 dark:bg-gray-800"
+                          name=""
+                          placeholder="Enter your email"
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <div>
+                          <label
+                            for=""
+                            className="text-gray-700 dark:text-gray-300 "
+                          >
+                            Password *
+                          </label>
+                          <div className="relative flex items-center mt-2">
+                            <input
+                              type="password"
+                              className="w-full px-4 py-3 bg-gray-200 rounded-lg dark:text-gray-400 dark:bg-gray-800 "
+                              name=""
+                              placeholder="Enter password"
+                            />
+                            <svg
+                        
+                              width="16"
+                              height="16"
+                              className="absolute right-0 mr-3 dark:text-gray-300"
+                              fill="currentColor"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"></path>
+                              <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
+                              <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <div>
+                          <label
+                            for=""
+                            className="text-gray-700 dark:text-gray-300 "
+                          >
+                            Confirm password *
+                          </label>
+                          <div class="relative flex items-center mt-2">
+                            <input
+                              type="password"
+                              className="w-full px-4 py-3 bg-gray-200 rounded-lg dark:text-gray-400 dark:bg-gray-800 "
+                              name=""
+                              placeholder="Confirm password"
+                            />
+                            <svg
+                              width="16"
+                              height="16"
+                              className="absolute right-0 mr-3 dark:text-gray-300"
+                              fill="currentColor"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"></path>
+                              <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
+                              <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        className="w-full px-4 py-3 mt-4 font-semibold text-gray-700 bg-yellow-400 rounded-lg hover:text-gray-700 hover:bg-blue-200 "
+                        type="submit"
+                      >
+                        Sign Up
+                      </button>
+                      <div className="py-5 text-base text-center text-gray-600 dark:text-gray-400">
+                        Or Sign up with
+                      </div>
+                      <div className="flex justify-center gap-3">
+                        <Link href={""}>
+                          <svg
+                            width="20"
+                            height="30"
+                            fill="currentColor"
+                            className=" text-blue-700 dark:text-blue-400 bi bi-facebook"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                          </svg>
+                        </Link>
+                        <Link href={""}>
+                          <svg
+                            width="20"
+                            height="30"
+                            fill="currentColor"
+                            className=" text-blue-700 dark:text-blue-400 bi bi-facebook"
+                            viewBox="0 0 256 262"
+                            id="google"
+                          >
+                            <path
+                              fill="#4285F4"
+                              d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+                            ></path>
+                            <path
+                              fill="#34A853"
+                              d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+                            ></path>
+                            <path
+                              fill="#FBBC05"
+                              d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
+                            ></path>
+                            <path
+                              fill="#EB4335"
+                              d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+                            ></path>
+                          </svg>
+                        </Link>
+                        <Link href={""}>
+                          <svg
+                            className=" text-blue-700 dark:text-blue-400"
+                            width="20"
+                            height="30"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                            ></path>
+                          </svg>
+                        </Link>
+                      </div>
+
+                      <div className="mt-4 text-gray-700  dark:text-gray-300">
+                        Already have an account?
+                        <Link
+                          href={"login"}
+                          className="font-semibold text-blue-700 hover:underline"
+                        >
+                          Login{" "}
+                        </Link>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-            </div>
-            <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                     <button type="button" class="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
-                        <svg class="w-4 h-4 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z"></path></svg>
-                        Sign in with Facebook
-                    </button>
+                <div className="hidden w-full px-6 mb-16 lg:w-3/5 lg:mb-0 lg:block">
+                  <span className="flex items-center justify-center w-20 h-20 mx-auto text-gray-900 bg-yellow-400 rounded-lg dark:bg-yellow-300 mb-9">
+                    <svg
+                      width="40"
+                      height="40"
+                      fill="currentColor"
+                      className="bi bi-person-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                      />
+                    </svg>
+                  </span>
+                  <h2 className="text-4xl font-bold text-center text-gray-100 dark:text-gray-400 mb-9 lg:text-6xl ">
+                    Are you ready to sign up our account?
+                  </h2>
+                  <p className="text-xl font-semibold text-center text-gray-200 dark:text-gray-500 ">
+                    You are welcome here!
+                  </p>
                 </div>
-                <button type="button" class="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
-                    <svg class="w-4 h-4 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
-                    Sign in with Google
-                </button>
+              </div>
             </div>
-        <div>
-            <button type="submit" class="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                 Sign in
-            </button>
+          </div>
         </div>
-        </form>
-    </div>
-</div>
-        </>
-    )
+      </section>
+    </>
+  );
 }
+
+
+SignUp.getLayout = function (){
+  return(
+    <>
+      {SignUp()}
+    </>
+  );
+}
+
+
+
+
+
+
+
