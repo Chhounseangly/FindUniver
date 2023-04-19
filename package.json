@@ -17,9 +17,7 @@
     "react-dom": "18.2.0",
     "react-use-state": "^0.0.1",
     "swiper": "^9.2.2",
-    "usestate": "^1.1.3",
-    "name": "swiper-react-pagination-custom"
-
+    "usestate": "^1.1.3"
   },
   "devDependencies": {
     "@types/node": "18.15.11",
