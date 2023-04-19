@@ -1,6 +1,6 @@
 import Banner from "@/componentsindexpage/banner";
 import Seletes from "@/componentsindexpage/selete";
-import Body from "@/components/body";
+import Body from "@/componentsindexpage/body";
 
 
 export default function Home() {

@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import Pagination from "../componentsindexpage/pagination";
+import Pagination from "./pagination";
 import Image from "next/image";
 import rupp from "../images/rupp.png";
 

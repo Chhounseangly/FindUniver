@@ -3,7 +3,8 @@ import Image from "next/image";
 import Rupp from "../images/rupp.jpg";
 import RuppLogo from "../images/rupp.png";
 import Moeys from "../images/moeys.png";
-import Carousel from "@/components/carousel";
+import CarouselPrograms from "@/components/universitycomponents/carouselprograms";
+import CarouselCarriculum from "@/components/universitycomponents/caouselcurriculum";
 
 //Read More and Less for ព័ត៍មានទូទៅ
 function ReadMore({ children }) {
@@ -53,6 +54,15 @@ const Images = [
     img: "https://amateurphotographer.com/wp-content/uploads/sites/7/2022/09/google-pixel-6a-cameras-photo-joshua-waller-2560-P9150514.jpg",
   },
 ];
+
+const faculties = [
+  {
+    facultiesName: "ថ្នាក់បរិញ្ញាបត្រ",
+    departments: ["1", "2", "3", "1", "2", "3", "1", "2", "3"],
+  },
+  { facultiesName: "a", departments: ["2", "3", "4"] },
+  { facultiesName: "b", departments: ["5", "4", "5"] },
+];
 // Define your body content component
 const BodyContent = ({ activeSubMenuIndex }) => {
   switch (activeSubMenuIndex) {
@@ -61,13 +71,17 @@ const BodyContent = ({ activeSubMenuIndex }) => {
       return (
         <>
           <div className="p-2 md:p-2 m-auto">
-            <Carousel />
+            <CarouselPrograms facultiesData={faculties} />
           </div>
         </>
       );
     // កម្មវិធីសិក្សា
     case 1:
-      return <div>2</div>;
+      return (
+        <div>
+          <CarouselCarriculum carriculumData={faculties}/>
+        </div>
+      );
     // តម្លៃសិក្សារ
     case 2:
       return (
@@ -113,7 +127,11 @@ export default function University() {
                 alt="Moeys"
               />
               <div className="w-1/2 text-white font-kh text-banner flex flex-col text-center absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 ">
-                <Image className="w-1/2 m-auto" src={RuppLogo} alt="logouniversity"/>
+                <Image
+                  className="w-1/2 m-auto"
+                  src={RuppLogo}
+                  alt="logouniversity"
+                />
                 <span className="tracking-wide ">
                   សាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ
                 </span>
@@ -173,7 +191,7 @@ export default function University() {
       {/* body */}
       <div className=" flex flex-col h-fit gap-2 ">
         {/* content */}
-        <div className="w-full lg:w-full h-80vh rounded-lg ">
+        <div className="w-full lg:w-full h-82vh dark:bg-gray-900">
           <BodyContent activeSubMenuIndex={activeSubMenuIndex} />
         </div>
         {/* contact */}

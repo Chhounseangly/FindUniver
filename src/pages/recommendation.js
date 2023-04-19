@@ -101,7 +101,7 @@ const RecommendationContent = ({ activeSubMenuIndex }) => {
     case 1:
       return (
         <>
-         {Grade.map((Subject, index) => (
+          {Grade.map((Subject, index) => (
             <div className="w-fit h-fit m-auto py-1.5" key={index}>
               <h3 className="font-semibold text-gray-900 font-khBtB">
                 {Subject.subject}*
@@ -129,7 +129,7 @@ const ListRadioGroup = ({ options, groupName }) => {
           className="w-20 flex flex-row p-2 m-2 h-fit items-center border border-gray-200 rounded  last:hidden"
         >
           <input
-            type="radio"
+            type="radio"  
             name={groupName}
             value={option.grade[index]}
             onChange={handleChange}
@@ -144,4 +144,3 @@ const ListRadioGroup = ({ options, groupName }) => {
     </div>
   );
 };
-

@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      borderColor: {
+        'bg-card': "linear-gradient(163deg, #00ff75 0%, #3700ff 100%)",
+      },
       backgroundImage: {
         'bg-aboutUs': "url('https://wallpaperaccess.com/full/1426870.png')",
       },
@@ -21,6 +24,7 @@ module.exports = {
         "10percent": "10%",
         "8vh": "8vh",
         "80vh": "80vh",
+        "82vh": "82vh",
         "70percent": "70%",
         "30percent": "30%",
         "500px": "43.75rem",
@@ -44,6 +48,10 @@ module.exports = {
       zIndex: {
         1: "1",
       },
+      backgroundColor: {
+        "bg-card": "rgb(7, 10, 82)"
+      }
+      
     },
   },
   plugins: [],
