@@ -79,16 +79,16 @@ const BodyContent = ({ activeSubMenuIndex }) => {
     case 1:
       return (
         <div>
-          <CarouselCarriculum carriculumData={faculties}/>
+          <CarouselCarriculum carriculumData={faculties} />
         </div>
       );
     // តម្លៃសិក្សារ
     case 2:
       return (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 overflow-hidden">
+        <div className="grid grid-cols-5 gap-7 p-5">
           {Images.map((img, index) => (
             <img
-              className="h-auto max-w-full rounded-lg transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-100"
+              className="h-auto transition ease-in-out delay-150   hover:-translate-y-1 hover:scale-110 duration-100 cursor-pointer"
               src={img.img}
               key={index}
               alt={img.img}
@@ -99,17 +99,18 @@ const BodyContent = ({ activeSubMenuIndex }) => {
   }
 };
 
+const SubMenu = [
+  { name: "ថ្នាក់បរិញ្ញាបត្រ" },
+  { name: "កម្មវិធីសិក្សា" },
+  { name: "រូបភាព" },
+];
 export default function University() {
   const [activeSubMenuIndex, setActiveSubMenuIndex] = useState(0);
   // Define the click handler function
   const handleSubMenuClick = (index) => {
     setActiveSubMenuIndex(index);
   };
-  const SubMenu = [
-    { name: "ថ្នាក់បរិញ្ញាបត្រ" },
-    { name: "កម្មវិធីសិក្សា" },
-    { name: "រូបភាព" },
-  ];
+
 
   return (
     <main className="content">

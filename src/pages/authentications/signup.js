@@ -5,7 +5,7 @@ export default function SignUp() {
   return (
     <>
       <section className="font-poppins">
-        <div className="relative z-10 flex items-center h-screen py-16 overflow-hidden lg:bg-blue-900 lg:dark:bg-gray-800 2xl:py-44">
+        <div className="relative z-10 flex items-center h-screen  overflow-hidden lg:bg-blue-900 lg:dark:bg-gray-800 2xl:py-44">
           <div className="absolute top-0 left-0 w-full h-full lg:bg-blue-900 dark:bg-bg-gray-700 lg:bottom-0 lg:h-auto lg:w-4/12">
             <img
               src="https://i.postimg.cc/XJBZvxHp/first.jpg"
