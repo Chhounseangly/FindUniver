@@ -1,6 +1,5 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -43,7 +42,7 @@ export default function CarouselPrograms({ facultiesData }) {
         rotate: 0,
         stretch: 0,
         depth: 25,
-        modifier: 1.5,
+        modifier: 2.5,
         slideShadows: false,
       }}
       pagination={{
@@ -61,8 +60,8 @@ export default function CarouselPrograms({ facultiesData }) {
     >
       {facultiesData.map((faculties, index) => (
         <SwiperSlide key={index}>
-          <div className="h-80vh border-2 rounded-md text-black  bg-white shadow-sm shadow-gray-800 font-kh">
-            <h1 className="border-b-2 border-gray-300 bg-gray-400  rounded-t-md text-center p-3 swiper-no-swiping ">
+          <div className="h-80vh border-2 border-gray-800 rounded-md text-black  bg-white shadow-sm shadow-gray-800 font-kh">
+            <h1 className="border-2 border-gray-300 bg-gray-800 text-white  rounded-t-md  text-center p-3 swiper-no-swiping ">
               {faculties.facultiesName}
             </h1>
             <ul className="w-full h-ful font-kh list-none cursor-pointer">

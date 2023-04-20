@@ -8,6 +8,15 @@ import Image from "next/image";
 import logo from "../images/logo.png";
 import profile from "../images/profile.png";
 
+
+const menuList = [
+  { name: "ទំព័រដើម", href: "/" },
+  { name: "មុខជំនាញ", href: "/major" },
+  { name: "ណែនាំមុខជំនាញ", href: "/recommendation" },
+  { name: "អំពីយើង", href: "/aboutus" },
+];
+
+
 //main NavBar
 function NavBar() {
   const [isSearchOpen, setSearchOpen] = useState(false);
@@ -39,7 +48,7 @@ function NavBar() {
               {/* Nav Links  */}
               {!isMenuOpen && (
                 <ul className="hidden xl:flex px-4 mx-auto font-heading space-x-12">
-                  {menu()}
+                <Menu menuList={menuList}/>
                 </ul>
               )}
 
@@ -139,7 +148,7 @@ function NavBar() {
           <div className="bg-black h-screen flex justify-center menuResponsive">
             <ul className="w-full flex flex-col font-heading text-white text-center space-y-10">
               <div className="w-full justify-center flex ">{SearchBar()}</div>
-              {menu()}
+              <Menu menuList={menuList}/>
               <div className="flex flex-col space-y-2">{Authentication()}</div>
             </ul>
           </div>
@@ -150,16 +159,8 @@ function NavBar() {
 }
 
 // menuList
-function menu() {
+function Menu({ menuList }) {
   const router = useRouter();
-
-  const menuList = [
-    { name: "ទំព័រដើម", href: "/" },
-    { name: "មុខជំនាញ", href: "/major" },
-    { name: "ណែនាំមុខជំនាញ", href: "/recommendation" },
-    { name: "អំពីយើង", href: "/aboutus" },
-  ];
-
   return (
     <>
       {menuList.map((menuList, index) => (

@@ -11,6 +11,7 @@ module.exports = {
       },
       backgroundImage: {
         'bg-aboutUs': "url('https://wallpaperaccess.com/full/1426870.png')",
+        "background": "linear-gradient(240deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 50%, rgba(0,212,255,1) 100%)",
       },
       width: {
         "10percent": "10%",

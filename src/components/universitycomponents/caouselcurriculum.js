@@ -63,7 +63,7 @@ export default function CarouselCarriculum({ carriculumData }) {
       >
         {carriculumData.map((carriculum, index) => (
           <SwiperSlide key={index}>
-            <div className="mt-2 font-kh w-10/12 h-80vh border-2 rounded-md m-auto text-black bg-white shadow-sm shadow-gray-800">
+            <div className="mt-2 font-kh w-10/12 h-80vh border-2 rounded-md m-auto text-black bg-white shadow-sm ">
               <h1 className="border-b-2 border-gray-300 bg-gray-400  rounded-t-md text-center p-2 swiper-no-swiping ">
                 ដេប៉ាតឺម៉ង
               </h1>

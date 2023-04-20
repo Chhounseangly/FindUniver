@@ -191,7 +191,7 @@ export default function University() {
       {/* body */}
       <div className=" flex flex-col h-fit gap-2 ">
         {/* content */}
-        <div className="w-full lg:w-full h-82vh dark:bg-gray-900">
+        <div className="w-full lg:w-full h-82vh">
           <BodyContent activeSubMenuIndex={activeSubMenuIndex} />
         </div>
         {/* contact */}

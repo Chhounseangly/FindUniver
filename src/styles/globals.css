@@ -58,8 +58,15 @@
     opacity: 80% ;
     right: 0;
   }
-
-
+  
+  .swiper-pagination > .swiper-pagination-bullet {
+    opacity: 1;
+    border: white solid 1px;
+    background-color: transparent;
+}
+.swiper-pagination > .swiper-pagination-bullet-active {
+    background-color: white;
+}
 
 
 
