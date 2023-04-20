@@ -1,4 +1,5 @@
 After Clone
--> npm install
-For running Project
--> npm run dev
+- npm install
+
+Running Project
+- npm run dev
