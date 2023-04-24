@@ -45,6 +45,8 @@ module.exports = {
       fontSize: {
         banner: "2vw",
         h5: "18px",
+        txtFav: "9px",
+        10: "10px"
       },
       zIndex: {
         1: "1",

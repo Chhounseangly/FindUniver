@@ -129,7 +129,7 @@ const ListRadioGroup = ({ options, groupName }) => {
           className="w-20 flex flex-row p-2 m-2 h-fit items-center border border-gray-200 rounded  last:hidden"
         >
           <input
-            type="radio"  
+            type="radio"
             name={groupName}
             value={option.grade[index]}
             onChange={handleChange}

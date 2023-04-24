@@ -8,6 +8,12 @@ import Image from "next/image";
 import logo from "../images/logo.png";
 import profile from "../images/profile.png";
 
+//icons
+import { BsSearch } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
+import { FiMenu } from "react-icons/fi";
+import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
+import { HiOutlineArrowLeftOnRectangle } from "react-icons/hi2";
 
 const menuList = [
   { name: "ទំព័រដើម", href: "/" },
@@ -15,7 +21,6 @@ const menuList = [
   { name: "ណែនាំមុខជំនាញ", href: "/recommendation" },
   { name: "អំពីយើង", href: "/aboutus" },
 ];
-
 
 //main NavBar
 function NavBar() {
@@ -25,6 +30,7 @@ function NavBar() {
     toggleContent("bannerLogo");
     toggleContent("dropdown");
     toggleContent("moeys");
+    toggleContent("form");
   };
 
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -48,7 +54,7 @@ function NavBar() {
               {/* Nav Links  */}
               {!isMenuOpen && (
                 <ul className="hidden xl:flex px-4 mx-auto font-heading space-x-12">
-                <Menu menuList={menuList}/>
+                  <Menu menuList={menuList} />
                 </ul>
               )}
 
@@ -60,33 +66,20 @@ function NavBar() {
                   href="#"
                   onClick={toggleSearch}
                 >
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    className="h-6 w-6"
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d={
-                        !isSearchOpen
-                          ? "M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                          : "M6 18L18 6M6 6l12 12"
-                      }
-                    ></path>
-                  </svg>
+                  {!isSearchOpen ? (
+                    <BsSearch size={24} />
+                  ) : (
+                    <AiOutlineClose size={24} />
+                  )}
                 </a>
 
                 {/* Sign In / Register   */}
-                {/* {!isMenuOpen && (
+                {!isMenuOpen && (
                   <div className="space-x-2 hidden sm:flex">
                     {Authentication()}
                   </div>
-                )} */}
-                {Profile()}
+                )}
+                {/* {Profile()} */}
               </div>
             </div>
             {/* Responsive navbar  */}
@@ -95,23 +88,11 @@ function NavBar() {
               href="#"
               onClick={toggleMenu}
             >
-              <svg
-                className="h-6 w-6 hover:text-gray-200"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d={
-                    !isMenuOpen
-                      ? "M4 6h16M4 12h16M4 18h16"
-                      : "M6 18L18 6M6 6l12 12"
-                  }
-                />
-              </svg>
+              {!isMenuOpen ? (
+                <FiMenu size={24} />
+              ) : (
+                <AiOutlineClose size={24} />
+              )}
             </a>
           </nav>
         </section>
@@ -148,7 +129,7 @@ function NavBar() {
           <div className="bg-black h-screen flex justify-center menuResponsive">
             <ul className="w-full flex flex-col font-heading text-white text-center space-y-10">
               <div className="w-full justify-center flex ">{SearchBar()}</div>
-              <Menu menuList={menuList}/>
+              <Menu menuList={menuList} />
               <div className="flex flex-col space-y-2">{Authentication()}</div>
             </ul>
           </div>
@@ -191,20 +172,7 @@ function SearchBar() {
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
+            <BsSearch size={18} color="gray" />
           </div>
           <input
             type="search"
@@ -233,12 +201,12 @@ function Authentication() {
   ];
   return (
     <>
-      {authentication.map(({ name, href, index }) => (
-        <Link href={href} key={index}>
+      {authentication.map(( name,index ) => (
+        <Link href={name.href} key={index}>
           <div className="item-center justify-center text-center m-auto">
             <button className="  m-auto inline-flex p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
               <span className=" m-auto  w-24 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                {name}
+                {name.name}
               </span>
             </button>
           </div>
@@ -287,20 +255,7 @@ function Profile() {
           </div>
           <ul className="py-2 px-3" aria-labelledby="user-menu-button">
             <li className="flex m-auto items-center">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-                ></path>
-              </svg>
+              <MdOutlineFavoriteBorder />
               <a
                 href="#"
                 className="font-kh block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
@@ -309,20 +264,7 @@ function Profile() {
               </a>
             </li>
             <li className="flex m-auto items-center">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-                ></path>
-              </svg>
+              <HiOutlineArrowLeftOnRectangle />
               <a
                 href="#"
                 className="font-kh block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"

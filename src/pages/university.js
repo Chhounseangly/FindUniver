@@ -6,6 +6,8 @@ import Moeys from "../images/moeys.png";
 import CarouselPrograms from "@/components/universitycomponents/carouselprograms";
 import CarouselCarriculum from "@/components/universitycomponents/caouselcurriculum";
 
+
+
 //Read More and Less for ព័ត៍មានទូទៅ
 function ReadMore({ children }) {
   const text = children;
