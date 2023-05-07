@@ -1,13 +1,23 @@
-import Layout from "@/components/layout";
+import { SessionProvider } from "next-auth/react";
 import "@/styles/globals.css";
+import NextNProgress from "nextjs-progressbar";
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps, session }) {
   if (Component.getLayout) {
-    return Component.getLayout(<Component {...pageProps} />);
+    return (
+      <>
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </>
+    );
   }
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <NextNProgress color="#209cee" />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </>
   );
 }

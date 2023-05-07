@@ -7,11 +7,13 @@ import ite from "../images/majors/ite.jpg";
 import hrm from "../images/majors/hrm.jpg";
 import architectural from "../images/majors/architectural.jpg";
 import Link from "next/link";
-import { toggleContent } from "@/components/togglecontent";
+// import { toggleContent } from "@/pages/components/togglecontent";
 import React, { useState } from "react";
 
 //icons
 import { BsSearch } from "react-icons/bs";
+import { getSession } from "next-auth/react";
+import Layout from "@/components/layout";
 
 //list of majors
 const majors = [
@@ -47,7 +49,7 @@ const majors = [
   },
 ];
 
-export default function Majors() {
+function Majors() {
   const [filterValue, setFilterValue] = useState("");
 
   // filter list by name
@@ -113,34 +115,37 @@ export default function Majors() {
     </div>
   );
 }
+export default ({ userData }) => 
+( 
+  <Layout title={"មុខជំនាញ"} session={userData} >
+  <Majors/>
+ </Layout>
+)
 
-// function Major({ major }) {
-//   return (
-//     <>
-//       {major.map((majors, index) => (
-//         <Link key={index} href={"university"}>
-//           <div
-//             className=" shadow-md
-//                   transition-all duration-200
-//                   cursor-pointer hover:scale-105 rounded-lg h-full bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 "
-//           >
-//             <Image
-//               className="h-70percent w-full rounded-t-lg"
-//               src={majors.img}
-//               alt={majors.img}
-//               priority={true}
-//             />
-//             <div className="h-30percent flex flex-col justify-center ml-3 py-2">
-//               <h5 className="text-base tracking-wider text-gray-900 dark:text-white font-khBtB">
-//                 {majors.majorstypeKH}
-//               </h5>
-//               <h5 className="text-base tracking-wide text-gray-900 dark:text-white font-khBtB">
-//                 {majors.majorstypeEN}
-//               </h5>
-//             </div>
-//           </div>
-//         </Link>
-//       ))}
-//     </>
-//   );
-// }
+export async function getServerSideProps(context) {
+  let datas = [];
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      props: {
+      },
+    };
+  }
+  await fetch(`http://127.0.0.1:8000/api/user`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${session?.user.token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      datas = res.data;
+    })
+    .catch((error) => console.log(error));
+
+  return {
+    props: {
+      userData: datas,
+    },
+  };
+}

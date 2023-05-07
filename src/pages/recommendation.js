@@ -1,13 +1,16 @@
 import { useState } from "react";
 import React from "react";
+import { getSession } from "next-auth/react";
+import Layout from "@/components/layout";
 
-export default function RecommendationMajor() {
+function RecommendationMajor() {
   const [activeSubMenuIndex, setActiveSubMenuIndex] = useState(0);
   // Define the click handler function
   const handleSubMenuClick = (index) => {
     setActiveSubMenuIndex(index);
   };
   const SubMenu = [{ name: "វិទ្យាសាស្រ្ត" }, { name: "សង្គម" }];
+
   return (
     <div className="w-full h/ bg-gray-200 p-5">
       <div className="w-4/5 h-fit shadow-lg mx-auto  bg-white">
@@ -144,3 +147,38 @@ const ListRadioGroup = ({ options, groupName }) => {
     </div>
   );
 };
+
+export default ({ userData }) => (
+  <Layout  title={"ណែនាំមុខជំនាញ"} session={userData}>
+    <RecommendationMajor />
+  </Layout>
+);
+
+export async function getServerSideProps(context) {
+  let datas = [];
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      props: {
+      },
+    };
+  }
+  await fetch(`http://127.0.0.1:8000/api/user`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${session?.user.token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      datas = res.data;
+    })
+    .catch((error) => console.log(error));
+
+  return {
+    props: {
+      userData: datas,
+    },
+  };
+}
+

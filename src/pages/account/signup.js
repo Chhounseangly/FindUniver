@@ -1,15 +1,14 @@
 import Link from "next/link";
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
+//icons
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { BiPhone, BiUserCircle } from "react-icons/bi";
-
-export default function SignUp() {
-  const [errors, setErrors] = useState({});
-  const [correct, setCorrect] = useState({});
-
+import usePasswordToggle from "@/components/togglepassword";
+import { getSession } from "next-auth/react";
+function SignUp() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -17,33 +16,19 @@ export default function SignUp() {
     cfPassword: "",
   });
 
-  //show and hide password
-  const [isShowPassword, setShowPassword] = useState(false);
-  const [passwordType, setPasswordType] = useState("password");
-
-  const togglePassword = () => {
-    setShowPassword(!isShowPassword);
-    if (passwordType === "password") {
-      setPasswordType("text");
-      setTimeout(() => {
-        setPasswordType("password"), setShowPassword(isShowPassword);
-      }, 2000);
-      return;
-    }
-    setPasswordType("password");
-  };
+  const [errors, setErrors] = useState({});
+  const [correct, setCorrect] = useState({});
 
   // Validate form data when it changes
   useEffect(() => {
     let newError = {};
     let newCorrect = {};
-    if (formData.fullName) {
+    if (formData.fullName.length > 2) {
       newCorrect.name = "Correct";
     }
     if (isValidEmail(formData.email)) {
       newCorrect.email = "Correct";
     }
-
     if (formData.cfPassword && formData.password) {
       if (formData.cfPassword != formData.password) {
         newError.cfPassword = "Please make sure your password match.";
@@ -57,7 +42,6 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Check for errors before submitting
-
     let newError = {};
     if (!formData.fullName) {
       newError.name = "fullName is require!";
@@ -74,7 +58,7 @@ export default function SignUp() {
     setErrors(newError);
 
     if (
-      formData.name &&
+      formData.fullName &&
       formData.email &&
       formData.password &&
       formData.cfPassword
@@ -85,8 +69,7 @@ export default function SignUp() {
         password: formData.password,
         cfPassword: formData.cfPassword,
       };
-      console.log(formData);
-      await fetch("http://localhost:8000/api/register", {
+      await fetch("http://127.0.0.1:8000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,18 +81,17 @@ export default function SignUp() {
         .then((res) => {
           console.log(res.body);
           Router.push("/").then((r) => console.log("success", r));
-        })
-        .catch((err) => console.log("error", err));
-      event.target.reset();
+        });
     }
   };
-
   const handleChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
+
+  const { isShowPassword, passwordType, togglePassword } = usePasswordToggle();
 
   return (
     <>
@@ -140,11 +122,11 @@ export default function SignUp() {
                         </label>
                         <input
                           type="text"
-                          value={formData.name}
+                          value={formData.fullName}
                           onChange={handleChange}
                           id="fullName"
                           className="w-full px-4 py-3 mt-2 bg-gray-200 rounded-lg dark:text-gray-100 dark:bg-gray-800"
-                          name="name"
+                          name="fullName"
                           placeholder="Enter full name"
                           maxLength="20"
                         />
@@ -192,7 +174,7 @@ export default function SignUp() {
                         </label>
                         <div className="relative flex items-center mt-2">
                           <input
-                            type={passwordType}
+                            // type={passwordType}
                             className="w-full px-4 py-3 bg-gray-200 rounded-lg dark:text-gray-400 dark:bg-gray-800 "
                             name="password"
                             value={formData.password}
@@ -204,7 +186,7 @@ export default function SignUp() {
                             title="Password should be digits (0 to 9) or alphabets (a to z)."
                           />
                           <div className="absolute right-0 mr-3 dark:text-gray-100 cursor-pointer">
-                            {!isShowPassword ? (
+                            {/* {!isShowPassword ? (
                               <AiOutlineEyeInvisible
                                 size={24}
                                 onClick={togglePassword}
@@ -212,10 +194,10 @@ export default function SignUp() {
                               />
                             ) : (
                               <AiOutlineEye size={24} color="gray" />
-                            )}
+                            )} */}
                           </div>
                         </div>
-                        <span className="text-xs float-right text-gray-400 ">
+                        <span className="text-xs float-right text-gray-400 select-none">
                           Minimum length is 8 characters
                         </span>
 
@@ -234,7 +216,7 @@ export default function SignUp() {
                           </label>
                           <div className="relative flex items-center mt-2">
                             <input
-                              type={passwordType}
+                              // type={passwordType}
                               className="w-full px-4 py-3 bg-gray-200 rounded-lg dark:text-gray-400 dark:bg-gray-800 "
                               name="cfPassword"
                               value={formData.cfPassword}
@@ -246,7 +228,7 @@ export default function SignUp() {
                               title="Password should be digits (0 to 9) or alphabets (a to z)."
                             />
                             <div className="absolute right-0 mr-3 dark:text-gray-100 cursor-pointer">
-                              {!isShowPassword ? (
+                              {/* {!isShowPassword ? (
                                 <AiOutlineEyeInvisible
                                   size={24}
                                   onClick={togglePassword}
@@ -254,7 +236,7 @@ export default function SignUp() {
                                 />
                               ) : (
                                 <AiOutlineEye size={24} color="gray" />
-                              )}
+                              )} */}
                             </div>
                           </div>
                           <div className="h-4">
@@ -295,7 +277,7 @@ export default function SignUp() {
                       <div className="mt-4 text-gray-700  dark:text-gray-300 select-none">
                         Already have an account?
                         <Link
-                          href={"login"}
+                          href="login"
                           className="font-semibold text-blue-700 hover:underline"
                         >
                           Login
@@ -324,6 +306,8 @@ export default function SignUp() {
   );
 }
 
+export default SignUp;
+
 function isValidEmail(email) {
   // Use a regular expression to validate email format
   return /^\S+@\S+\.\S+$/.test(email);
@@ -332,3 +316,20 @@ function isValidEmail(email) {
 SignUp.getLayout = function () {
   return <>{SignUp()}</>;
 };
+
+
+//check session login 
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}

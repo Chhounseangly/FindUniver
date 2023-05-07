@@ -3,10 +3,10 @@ import Image from "next/image";
 import Rupp from "../images/rupp.jpg";
 import RuppLogo from "../images/rupp.png";
 import Moeys from "../images/moeys.png";
-import CarouselPrograms from "@/components/universitycomponents/carouselprograms";
-import CarouselCarriculum from "@/components/universitycomponents/caouselcurriculum";
-
-
+import SliderPrograms from "@/components/university/sliderprograms";
+import SliderCurriculum from "@/components/university/sildercurriculum";
+import Layout from "@/components/layout";
+import { getSession } from "next-auth/react";
 
 //Read More and Less for ព័ត៍មានទូទៅ
 function ReadMore({ children }) {
@@ -73,7 +73,7 @@ const BodyContent = ({ activeSubMenuIndex }) => {
       return (
         <>
           <div className="p-2 md:p-2 m-auto">
-            <CarouselPrograms facultiesData={faculties} />
+            <SliderPrograms facultiesData={faculties} />
           </div>
         </>
       );
@@ -81,7 +81,7 @@ const BodyContent = ({ activeSubMenuIndex }) => {
     case 1:
       return (
         <div>
-          <CarouselCarriculum carriculumData={faculties} />
+          <SliderCurriculum carriculumData={faculties} />
         </div>
       );
     // តម្លៃសិក្សារ
@@ -106,13 +106,12 @@ const SubMenu = [
   { name: "កម្មវិធីសិក្សា" },
   { name: "រូបភាព" },
 ];
-export default function University() {
+function University({ universitiesData }) {
   const [activeSubMenuIndex, setActiveSubMenuIndex] = useState(0);
   // Define the click handler function
   const handleSubMenuClick = (index) => {
     setActiveSubMenuIndex(index);
   };
-
 
   return (
     <main className="content">
@@ -120,7 +119,13 @@ export default function University() {
       <section>
         <div className="flex py-2 px-2 gap-1 ">
           <div className="w-1/2 ">
-            <Image className="rounded-md" src={Rupp} alt="banner" />
+            <Image
+              className="rounded-md"
+              src={Rupp}
+              alt="banner"
+              loading="eager"
+              priority={true}
+            />
           </div>
           <div className="w-1/2 bg-banner-color rounded-md">
             <div className="relative h-full">
@@ -304,4 +309,53 @@ export default function University() {
       </div>
     </main>
   );
+}
+export default ({ userData, universitiesData }) => (
+  <Layout title={"សាលា"} session={userData}>
+    <University universitiesData={universitiesData} />
+  </Layout>
+);
+
+//serverside fetch Data
+export async function getServerSideProps(context) {
+  let datas = [];
+  let universitiesData = [];
+  const session = await getSession(context);
+
+  //fetch data of user account
+  await fetch(`http://127.0.0.1:8000/api/user`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${session?.user.token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      datas = res.data;
+    })
+    .catch((error) => console.log(error));
+
+  //fetch data of university
+  await fetch(`http://127.0.0.1:8000/api/universities`)
+    .then((res) => res.json())
+    .then((res) => {
+      universitiesData = res.data;
+    })
+    .catch((error) => console.log(error));
+  console.log(universitiesData);
+  //if (not log in)
+  if (!session) {
+    return {
+      props: {
+        universitiesData: universitiesData,
+      },
+    };
+  }
+  //if (log in)
+  return {
+    props: {
+      userData: datas,
+      universitiesData: universitiesData,
+    },
+  };
 }
