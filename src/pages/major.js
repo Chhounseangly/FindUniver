@@ -12,7 +12,6 @@ import React, { useState } from "react";
 
 //icons
 import { BsSearch } from "react-icons/bs";
-import { getSession } from "next-auth/react";
 import Layout from "@/components/layout";
 
 //list of majors
@@ -80,7 +79,7 @@ function Majors() {
         </form>
       </div>
 
-      <div className="px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:px-16 -top-10 relative ">
+      <div className="px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:px-16 -top-10 relative majorBody">
         {filteredList.filterValue === "" ? (
           ""
         ) : !filteredList.length ? (
@@ -115,37 +114,8 @@ function Majors() {
     </div>
   );
 }
-export default ({ userData }) => 
-( 
-  <Layout title={"មុខជំនាញ"} session={userData} >
-  <Majors/>
- </Layout>
-)
-
-export async function getServerSideProps(context) {
-  let datas = [];
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      props: {
-      },
-    };
-  }
-  await fetch(`http://127.0.0.1:8000/api/user`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${session?.user.token}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      datas = res.data;
-    })
-    .catch((error) => console.log(error));
-
-  return {
-    props: {
-      userData: datas,
-    },
-  };
-}
+export default () => (
+  <Layout title={"មុខជំនាញ"} icon={`/icon.png`}>
+    <Majors />
+  </Layout>
+);

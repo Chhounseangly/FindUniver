@@ -1,6 +1,5 @@
 import { useState } from "react";
 import React from "react";
-import { getSession } from "next-auth/react";
 import Layout from "@/components/layout";
 
 function RecommendationMajor() {
@@ -148,37 +147,8 @@ const ListRadioGroup = ({ options, groupName }) => {
   );
 };
 
-export default ({ userData }) => (
-  <Layout  title={"ណែនាំមុខជំនាញ"} session={userData}>
+export default () => (
+  <Layout title={"ណែនាំមុខជំនាញ"} icon={`/icon.png`}>
     <RecommendationMajor />
   </Layout>
 );
-
-export async function getServerSideProps(context) {
-  let datas = [];
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      props: {
-      },
-    };
-  }
-  await fetch(`http://127.0.0.1:8000/api/user`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${session?.user.token}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      datas = res.data;
-    })
-    .catch((error) => console.log(error));
-
-  return {
-    props: {
-      userData: datas,
-    },
-  };
-}
-

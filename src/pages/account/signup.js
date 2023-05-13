@@ -64,8 +64,8 @@ function SignUp() {
       formData.cfPassword
     ) {
       const data = {
-        fullName: formData.fullName,
         email: formData.email,
+        name: formData.fullName,
         password: formData.password,
         cfPassword: formData.cfPassword,
       };

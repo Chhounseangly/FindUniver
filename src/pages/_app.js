@@ -6,9 +6,8 @@ export default function App({ Component, pageProps, session }) {
   if (Component.getLayout) {
     return (
       <>
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
-        </SessionProvider>
+        <NextNProgress color="#209cee" />
+        <Component {...pageProps} />
       </>
     );
   }

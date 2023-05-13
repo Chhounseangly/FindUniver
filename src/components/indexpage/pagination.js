@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 export default function Pagination({
@@ -40,7 +39,7 @@ export default function Pagination({
           </p>
         </div>
         <div className="sm:flex hidden flex-wrap gap-2">
-          {pages.map((page) => {
+          {pages?.map((page) => {
             return (
               <p
                 key={page}

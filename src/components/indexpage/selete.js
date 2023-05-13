@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const locationOptions = [
-  { value: "All", text: "ទាំងអស់" },
+  { value: "", text: "ទាំងអស់" },
   { value: "PhnomPenh", text: "ភ្នំពេញ" },
   { value: "Kandal", text: "កណ្ដាល" },
   { value: "KampongCham", text: "កំពង់ចាម" },
@@ -36,20 +36,37 @@ const locationOptions = [
 ];
 
 const typesOpetions = [
-  { value: "All", text: "ទាំងអស់" },
+  { value: "", text: "ទាំងអស់" },
   { value: "Public", text: "រដ្ឋ" },
   { value: "Private", text: "ឯកជន" },
 ];
-export default function Seletes() {
+export default function Seletes({ universitiesData }) {
   const [selected, setSelected] = useState(
     locationOptions[0].value,
     typesOpetions[0].value
   );
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setSelected(e.target.value);
   };
+
+  // Function to get filtered list
+  function getFilteredList() {
+    // Avoid filter when selectedCategory is null
+    if (!universitiesData) {
+      return null;
+    }
+    return universitiesData?.filter((data) => {
+      // console.log(data.university_type.type_en)
+      if (
+        data.university_type.type_en.toLowerCase() === selected.toLowerCase()
+      ) {
+        return data;
+      }
+    });
+  }
+  const test =  getFilteredList();
+
   return (
     <>
       <div className="w-fit flex flex-wrap gap-2 p-2 bg-opacity-20 justify-center m-auto rounded shadow-gray-500 shadow-sm">
@@ -73,7 +90,6 @@ export default function Seletes() {
             value={selected}
             onChange={handleChange}
             className="select-types font-kh py-2 px-4 w-48 cursor-pointer rounded"
-            
           >
             {typesOpetions.map((typeOption) => (
               <option key={typeOption.value} value={typeOption.value}>

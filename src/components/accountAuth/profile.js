@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Link from "next/link";
 import { toggleContent } from "../togglecontent";
@@ -12,13 +12,14 @@ import { HiOutlineArrowLeftOnRectangle } from "react-icons/hi2";
 import { AiOutlineUser } from "react-icons/ai";
 
 export default function Form({ session }) {
-  const { status, update } = useSession();
+  const { status } = useSession();
   const [isDropdownProfile, setDropdownProfile] = useState(false);
   const ToggleProfile = () => {
     setDropdownProfile(!isDropdownProfile);
     toggleContent("search");
   };
 
+  console.log(status)
   return (
     <>
       {status == "unauthenticated" && (
@@ -65,38 +66,50 @@ export default function Form({ session }) {
             </button>
             {isDropdownProfile && (
               <div
-                className=" dropdown absolute z-50 top-16 right-12 text-base  divide-y divide-gray-100 rounded-lg  bg-gray-900 border-2 border-gray-600 "
+                className="min-w-[12rem] transition ease-out duration-100  dropdown absolute z-50 top-10 right-0 text-base divide-y divide-gray-100 rounded-lg  bg-gray-900 border-2 border-gray-600 "
                 id="user-dropdown"
               >
                 <div className="px-4 py-3 rounded-t-lg">
                   <span className="block text-sm  font-bold text-white pb-1">
-                    {session.fullName}
+                    {!session ? (
+                      <span className="font-khBtB">ទិន្ន័យមិនទាន់មាន</span>
+                    ) : (
+                      session.name
+                    )}
                   </span>
                   <span className="block text-sm text-gray-200">
-                    {session.email}
+                    {!session ? (
+                      <span className="font-khBtB">ទិន្ន័យមិនទាន់មាន</span>
+                    ) : (
+                      session.email
+                    )}
                   </span>
                 </div>
-                <ul className="py-2 px-4" aria-labelledby="user-menu-button">
-                  <li className="flex m-auto items-center ">
+                <ul className="py-2 px-4 ">
+                  <li className="flex m-auto items-center  w-full hover:border-r-2 border-red-300">
                     <AiOutlineUser />
-                    <Link href={`../account/${session.id}/profile`}>
-                      <span className="font-kh block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    <Link
+                      href={`../account/${
+                        !session ? null : session.id
+                      }/profile`}
+                    >
+                      <div className="font-kh block px-4 py-2 text-sm  text-gray-200 ">
                         គណនី
-                      </span>
+                      </div>
                     </Link>
                   </li>
-                  <li className="flex m-auto items-center">
+                  <li className="flex m-auto items-center  w-full hover:border-r-2 border-red-400">
                     <MdOutlineFavoriteBorder />
-                    <span className="font-kh block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    <span className="font-kh block px-4 py-2 text-sm text-gray-200 hover:text-red-400 ">
                       រក្សាទុក
                     </span>
                   </li>
-                  <li className="flex m-auto items-center">
+                  <li className="flex m-auto items-center  w-full hover:border-r-2 border-red-400">
                     <HiOutlineArrowLeftOnRectangle />
                     <a
                       href="#"
                       onClick={() => signOut()}
-                      className="font-kh block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      className="font-kh block px-4 py-2 text-sm text-gray-200 hover:text-red-400 "
                     >
                       ចាកចេញ
                     </a>

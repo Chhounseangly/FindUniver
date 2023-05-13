@@ -45,6 +45,7 @@ module.exports = {
       },
       fontSize: {
         banner: "2vw",
+        welcomeText: "2.5vw",
         h5: "18px",
         txtFav: "9px",
         10: "10px"
