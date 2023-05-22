@@ -28,6 +28,11 @@ export default function Layout({ children, icon, title }) {
         />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" type="image/png" sizes="16x16" href={icon} />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css"
+        />
+
         <title>{title}</title>
       </Head>
       <Navbar session={userData} />

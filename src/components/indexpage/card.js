@@ -11,6 +11,7 @@ const ReactStars = dynamic(() => import("react-stars"), { ssr: false });
 
 export default function Card({ university }) {
   const { data: session } = useSession();
+  let api = "http://127.0.0.1:8000/api";
 
   const [isClickFav, setClickFav] = useState(false);
 
@@ -33,7 +34,7 @@ export default function Card({ university }) {
             <div className="rounded-t h-full w-full flex">
               <img
                 className="h-32 max-w-[8rem]  m-auto"
-                src={university?.logo}
+                src={api + "/images/" + university?.logo}
                 alt={university?.name_km}
               />
             </div>

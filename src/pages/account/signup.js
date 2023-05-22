@@ -7,8 +7,14 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { BiPhone, BiUserCircle } from "react-icons/bi";
 import usePasswordToggle from "@/components/togglepassword";
-import { getSession } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
+import NextNProgress from "nextjs-progressbar";
+import { Alert } from "@mui/material";
+
 function SignUp() {
+  //show and hide password
+  const { isShowPassword, passwordType, togglePassword } = usePasswordToggle();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -18,6 +24,11 @@ function SignUp() {
 
   const [errors, setErrors] = useState({});
   const [correct, setCorrect] = useState({});
+  // check email
+  const [pageState, setPageState] = useState({
+    err: "",
+    processing: false,
+  });
 
   // Validate form data when it changes
   useEffect(() => {
@@ -68,6 +79,7 @@ function SignUp() {
         name: formData.fullName,
         password: formData.password,
         cfPassword: formData.cfPassword,
+        role: "user",
       };
       await fetch("http://127.0.0.1:8000/api/register", {
         method: "POST",
@@ -79,8 +91,23 @@ function SignUp() {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res.body);
-          Router.push("/").then((r) => console.log("success", r));
+          if (res.status === 201) {
+            setPageState((old) => ({ ...old, processing: true, err: "" }));
+            signIn("credentials", {
+              email: data.email,
+              password: data.password,
+              redirect: false,
+            }).then((res) => {
+              if (res.ok) {
+                Router.push("/");
+              }
+            });
+          } else
+            setPageState((old) => ({
+              ...old,
+              processing: false,
+              err: "This email is already registered",
+            }));
         });
     }
   };
@@ -91,16 +118,14 @@ function SignUp() {
     });
   };
 
-  const { isShowPassword, passwordType, togglePassword } = usePasswordToggle();
-
   return (
     <>
       <section className="font-poppins">
         <div className="relative z-10  flex items-center h-screen  overflow-hidden lg:bg-blue-900 lg:dark:bg-gray-800 2xl:py-44">
           <div className="absolute top-0 left-0 w-full h-full lg:bg-blue-900 dark:bg-bg-gray-700 lg:bottom-0 lg:h-auto lg:w-4/12">
             <img
-              src="https://i.postimg.cc/XJBZvxHp/first.jpg"
-              alt=""
+              src="/wallpaper.jpg"
+              alt="register"
               className="hidden object-cover w-full h-full lg:block"
             />
           </div>
@@ -113,6 +138,11 @@ function SignUp() {
                       Sign Up to your account
                     </h2>
                     <form onSubmit={handleSubmit} className="mt-4 w-72">
+                      {pageState.err ? (
+                        <Alert severity="error">{pageState.err}</Alert>
+                      ) : (
+                        ""
+                      )}
                       <div>
                         <label
                           htmlFor="fullName"
@@ -174,7 +204,7 @@ function SignUp() {
                         </label>
                         <div className="relative flex items-center mt-2">
                           <input
-                            // type={passwordType}
+                            type={passwordType}
                             className="w-full px-4 py-3 bg-gray-200 rounded-lg dark:text-gray-400 dark:bg-gray-800 "
                             name="password"
                             value={formData.password}
@@ -186,7 +216,7 @@ function SignUp() {
                             title="Password should be digits (0 to 9) or alphabets (a to z)."
                           />
                           <div className="absolute right-0 mr-3 dark:text-gray-100 cursor-pointer">
-                            {/* {!isShowPassword ? (
+                            {!isShowPassword ? (
                               <AiOutlineEyeInvisible
                                 size={24}
                                 onClick={togglePassword}
@@ -194,7 +224,7 @@ function SignUp() {
                               />
                             ) : (
                               <AiOutlineEye size={24} color="gray" />
-                            )} */}
+                            )}
                           </div>
                         </div>
                         <span className="text-xs float-right text-gray-400 select-none">
@@ -216,7 +246,7 @@ function SignUp() {
                           </label>
                           <div className="relative flex items-center mt-2">
                             <input
-                              // type={passwordType}
+                              type={passwordType}
                               className="w-full px-4 py-3 bg-gray-200 rounded-lg dark:text-gray-400 dark:bg-gray-800 "
                               name="cfPassword"
                               value={formData.cfPassword}
@@ -228,7 +258,7 @@ function SignUp() {
                               title="Password should be digits (0 to 9) or alphabets (a to z)."
                             />
                             <div className="absolute right-0 mr-3 dark:text-gray-100 cursor-pointer">
-                              {/* {!isShowPassword ? (
+                              {!isShowPassword ? (
                                 <AiOutlineEyeInvisible
                                   size={24}
                                   onClick={togglePassword}
@@ -236,7 +266,7 @@ function SignUp() {
                                 />
                               ) : (
                                 <AiOutlineEye size={24} color="gray" />
-                              )} */}
+                              )}
                             </div>
                           </div>
                           <div className="h-4">
@@ -254,11 +284,20 @@ function SignUp() {
                         </div>
                       </div>
                       <button
-                        className="w-full px-4 py-3 mt-4 font-semibold text-gray-700 bg-yellow-400 rounded-lg hover:text-gray-700 hover:bg-blue-200 select-none "
+                        type="submit"
+                        className="w-full relative inline-flex items-center justify-start px-6 py-3 mt-4  overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group"
+                      >
+                        <span className="w-48 h-48 rounded rotate-[-40deg] bg-yellow-400  absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+                        <span className="text-center relative w-full font-semibold text-black transition-colors duration-300 ease-in-out ">
+                          Sign Up
+                        </span>
+                      </button>
+                      {/* <button
+                        className=" px-4 py-3 mt-4 font-semibold text-gray-700 bg-yellow-400 rounded-lg hover:text-gray-700 hover:bg-blue-200 select-none "
                         type="submit"
                       >
                         Sign Up
-                      </button>
+                      </button> */}
                       <div className="py-5 text-base text-center text-gray-600 dark:text-gray-400 select-none">
                         Or Sign up with
                       </div>
@@ -314,11 +353,15 @@ function isValidEmail(email) {
 }
 
 SignUp.getLayout = function () {
-  return <>{SignUp()}</>;
+  return (
+    <>
+      <NextNProgress color="#209cee" />
+      {SignUp()}
+    </>
+  );
 };
 
-
-//check session login 
+//check session login
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   if (session) {

@@ -1,22 +1,17 @@
-import  { useState } from "react";
+import { useState } from "react";
 
+//show and hide password
 function usePasswordToggle() {
   const [passwordType, setPasswordType] = useState("password");
   const [isShowPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
+    setPasswordType("text");
     setShowPassword(!isShowPassword);
-    {
-      passwordType === "password"
-        ? (() => {
-            setPasswordType("text");
-            setTimeout(() => {
-              setPasswordType("password");
-              setShowPassword(isShowPassword);
-            }, 2000);
-          })()
-        : "password";
-    }
+    setTimeout(() => {
+      setPasswordType("password");
+      setShowPassword(false);
+    }, 1500);
   };
 
   return { isShowPassword, passwordType, togglePassword };

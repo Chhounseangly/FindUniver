@@ -51,7 +51,7 @@ export default function NavBar({ session }) {
           {/* navbar  */}
           <nav className="flex justify-between bg-banner-color text-white ">
             <div className="px-5 xl:px-10 py-1.5 flex w-full items-center justify-between">
-              <a className="text-3xl font-bold font-heading" href="#">
+              <a className="text-3xl font-bold font-heading" href="/">
                 <Image className="h-8vh w-15vh" src={logo} alt="logo" />
               </a>
               {/* Nav Links  */}

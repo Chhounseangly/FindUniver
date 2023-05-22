@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Router from "next/router";
@@ -12,8 +12,10 @@ import { BiPhone, BiUserCircle } from "react-icons/bi";
 import { getSession, signIn, useSession } from "next-auth/react";
 import usePasswordToggle from "@/components/togglepassword";
 
-
 export default function Login() {
+  //show and hide password
+  const { isShowPassword, passwordType, togglePassword } = usePasswordToggle();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,7 +30,6 @@ export default function Login() {
 
   // Validate form data when it changes
   useEffect(() => {
-    // let newError = {};
     let newCorrect = {};
     if (isValidEmail(formData.email)) {
       newCorrect.email = "Correct";
@@ -53,27 +54,17 @@ export default function Login() {
       signIn("credentials", {
         ...formData,
         redirect: false,
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.ok) {
-            Router.push("/");
-          } else {
-            setPageState((old) => ({
-              ...old,
-              processing: false,
-              err: "Invalid email or password",
-            }));
-          }
-        })
-        .catch((error) => {
-          console.log(error);
+      }).then((res) => {
+        if (res.ok) {
+          Router.push("/");
+        } else {
           setPageState((old) => ({
             ...old,
             processing: false,
-            err: error.massage ?? "Something went wrong!",
+            err: "Invalid email or password",
           }));
-        });
+        }
+      });
     }
   };
   const handleChange = (event) => {
@@ -87,8 +78,8 @@ export default function Login() {
       <div className="relative z-10  flex items-center h-screen  overflow-hidden lg:bg-blue-900 lg:dark:bg-gray-800 2xl:py-44">
         <div className="absolute top-0 left-0 w-full h-full lg:bg-blue-900 dark:bg-bg-gray-700 lg:bottom-0 lg:h-auto lg:w-4/12">
           <img
-            src="https://i.postimg.cc/XJBZvxHp/first.jpg"
-            alt=""
+            src="/wallpaper.jpg"
+            alt="login"
             className="hidden object-cover w-full h-full lg:block"
           />
         </div>
@@ -138,7 +129,7 @@ export default function Login() {
                       </label>
                       <div className="relative flex items-center mt-2">
                         <input
-                          // type={passwordType}
+                          type={passwordType}
                           className="w-full px-4 py-3 bg-gray-200 rounded-lg dark:text-gray-400 dark:bg-gray-800 "
                           name="password"
                           value={formData.password}
@@ -150,7 +141,7 @@ export default function Login() {
                           title="Password should be digits (0 to 9) or alphabets (a to z)."
                         />
                         <div className="absolute right-0 mr-3 dark:text-gray-100 cursor-pointer">
-                          {/* {!isShowPassword ? (
+                          {!isShowPassword ? (
                             <AiOutlineEyeInvisible
                               size={24}
                               onClick={togglePassword}
@@ -158,7 +149,7 @@ export default function Login() {
                             />
                           ) : (
                             <AiOutlineEye size={24} color="gray" />
-                          )} */}
+                          )}
                         </div>
                       </div>
                       <span className="text-xs float-right text-gray-400 select-none">
@@ -173,14 +164,23 @@ export default function Login() {
                         )}
                       </div>
                     </div>
-
                     <button
+                      disabled={pageState.processing}
+                      type="submit"
+                      class="w-full relative inline-flex items-center justify-start px-6 py-3 mt-4  overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group"
+                    >
+                      <span class="w-48 h-48 rounded rotate-[-40deg] bg-yellow-400  absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+                      <span class="text-center relative w-full font-semibold  text-black transition-colors duration-300 ease-in-out ">
+                        Log in
+                      </span>
+                    </button>
+                    {/* <button
                       disabled={pageState.processing}
                       className="w-full px-4 py-3 mt-4 font-semibold text-gray-700 bg-yellow-400 rounded-lg hover:text-gray-700 hover:bg-blue-200 select-none "
                       type="submit"
                     >
                       Log in
-                    </button>
+                    </button> */}
                     <div className="py-5 text-base text-center text-gray-600 dark:text-gray-400 select-none">
                       Or Sign up with
                     </div>
@@ -236,28 +236,7 @@ Login.getLayout = function () {
   return <>{Login()}</>;
 };
 
-// export async function getServerSideProps(context) {
-
-//   let datas = [];
-//   const session = await getSession(context);
-//    const userData = await fetch(`http://127.0.0.1:8000/api/user`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${session?.user.token}`,
-//     },
-//   }).then((res)=> res.json()).then((res)=>{
-//     datas = res.data
-//   })
-
-//   return {
-//     props: {
-//       data: datas
-//     },
-//   };
-// }
-
-
-//check session login 
+//check session login
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   if (session) {

@@ -1,13 +1,12 @@
 import Banner from "@/components/banner";
 import Body from "@/components/indexpage/body";
-import Seletes from "@/components/indexpage/selete";
 
 //images
 import banner from "../images/banner.png";
 import Layout from "@/components/layout";
 import Image from "next/image";
 
-export default function Home({ universitiesData }) {
+export default function Home({ universitiesData, api }) {
   return (
       <Layout
         icon={`/icon.png`}
@@ -24,9 +23,9 @@ export default function Home({ universitiesData }) {
 //static fetch Data
 export async function getStaticProps() {
   let universitiesData = [];
-
+  let api = 'http://127.0.0.1:8000/api'
   //fetch data of university
-  await fetch(`http://127.0.0.1:8000/api/universities`)
+  await fetch(`${api}/universities`)
     .then((res) => res.json())
     .then((res) => {
       universitiesData = res.data;

@@ -8,7 +8,10 @@ import "swiper/css/navigation";
 
 import { Keyboard, EffectCreative, Pagination, Navigation } from "swiper";
 
-export default function CarouselCarriculum({ carriculumData }) {
+export default function CarouselCarriculum({ carriculumData, departmentId }) {
+  console.log(carriculumData.faculties);
+  // console.log(carriculumData.faculties[departmentId - 1].departments[departmentId - 1].majors);
+
   return (
     <>
       <Swiper
@@ -61,45 +64,46 @@ export default function CarouselCarriculum({ carriculumData }) {
         modules={[Keyboard, EffectCreative, Pagination, Navigation]}
         className="swiper_container"
       >
-        {carriculumData.map((carriculum, index) => (
+       
+        {carriculumData.faculties[departmentId - 1]?.departments[departmentId - 1]?.majors.map((data, index) => (
           <SwiperSlide key={index}>
             <div className="mt-2 font-kh w-10/12 h-80vh border-2 rounded-md m-auto text-black bg-white shadow-sm ">
               <h1 className="border-b-2 border-gray-300 bg-gray-400  rounded-t-md text-center p-2 swiper-no-swiping ">
-                ដេប៉ាតឺម៉ង
+                {carriculumData.faculties[departmentId - 1]?.departments[departmentId - 1]?.name_km}
               </h1>
               <h1 className="border-b-2 border-gray-300 bg-gray-200 text-center p-2 swiper-no-swiping">
-                ឆ្នាំទី {carriculum.facultiesName}
+                ឆ្នាំទី {index + 1}
               </h1>
               <h1 className="text-center border-b-2 border-gray-300 p-2 swiper-no-swiping">
-                តម្លៃសិក្សារ:​​ {carriculum.facultiesName}
+                តម្លៃសិក្សារ:​​ 
               </h1>
               <div className="flex justify-around gap-2">
                 <ul className="w-full h-ful font-kh list-none cursor-pointer">
                   <h1 className="text-center border-b-2 border-gray-300 p-2 swiper-no-swiping bg-gray-200 ">
-                    ឆមាសទី​១
+                    ឆមាសទី​ {}
                   </h1>
-                  {carriculum.departments.map((department, index) => (
+                  {/* {carriculum.departments.map((department, index) => (
                     <li
                       className="border-b-2 p-2 hover:border-b-2 hover:border-b-black"
                       key={index}
                     >
                       {department[0]}
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
                 <span className="min-h-full w-2 border-2 "></span>
                 <ul className="w-full h-ful font-kh list-none cursor-pointer">
                   <h1 className="text-center border-b-2 border-gray-300 p-2 swiper-no-swiping bg-gray-200 ">
                     ឆមាសទី​២
                   </h1>
-                  {carriculum.departments.map((department, index) => (
+                  {/* {carriculum.departments.map((department, index) => (
                     <li
                       className="border-b-2 p-2 hover:border-b-2 hover:border-b-black"
                       key={index}
                     >
                       {department[0]}
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
               </div>
             </div>

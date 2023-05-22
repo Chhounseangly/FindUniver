@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import SliderPrograms from "@/components/university/sliderprograms";
-import SliderCurriculum from "@/components/university/sildercurriculum";
-import Layout from "@/components/layout";
-import Banner from "@/components/banner";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import Moeys from "../../../../images/moeys.png";
 
 import { BsTelephone, BsLink45Deg } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { TbMap2 } from "react-icons/tb";
 
-//Read More and Less for ព័ត៍មានទូទៅ
+
 function ReadMore({ children }) {
   const text = children;
   const [showFullText, setShowFullText] = useState(false);
@@ -16,6 +15,7 @@ function ReadMore({ children }) {
   if (text.length <= 499) {
     return <p>{text}</p>;
   }
+
   const truncatedText = showFullText ? text : `${text.slice(0, 300)}`;
   const toggleShowFullText = () => setShowFullText((show) => !show);
   return (
@@ -33,140 +33,83 @@ function ReadMore({ children }) {
   );
 }
 
-const Images = [
-  {
-    img: "https://amateurphotographer.com/wp-content/uploads/sites/7/2022/09/google-pixel-6a-cameras-photo-joshua-waller-2560-P9150514.jpg",
-  },
-  {
-    img: "https://amateurphotographer.com/wp-content/uploads/sites/7/2022/09/google-pixel-6a-cameras-photo-joshua-waller-2560-P9150514.jpg",
-  },
-  {
-    img: "https://amateurphotographer.com/wp-content/uploads/sites/7/2022/09/google-pixel-6a-cameras-photo-joshua-waller-2560-P9150514.jpg",
-  },
-  {
-    img: "https://cdn.shopify.com/s/files/1/0428/9455/7352/collections/Categoria_Pixel_x600_e5557e9e-3e64-47fd-9bc9-460ecbfc44e8_grande.webp?v=1659455872",
-  },
-  {
-    img: "https://amateurphotographer.com/wp-content/uploads/sites/7/2022/09/google-pixel-6a-cameras-photo-joshua-waller-2560-P9150514.jpg",
-  },
-  {
-    img: "https://amateurphotographer.com/wp-content/uploads/sites/7/2022/09/google-pixel-6a-cameras-photo-joshua-waller-2560-P9150514.jpg",
-  },
-  {
-    img: "https://amateurphotographer.com/wp-content/uploads/sites/7/2022/09/google-pixel-6a-cameras-photo-joshua-waller-2560-P9150514.jpg",
-  },
-];
+export default function detail({ university }) {
+  let api = "http://localhost:8000/api";
+  // const router = useRouter();
+  // const { id } = router.query;
 
-const faculties = [
-  {
-    facultiesName: "ថ្នាក់បរិញ្ញាបត្រ",
-    departments: ["1", "2", "3", "1", "2", "3", "1", "2", "3"],
-  },
-  { facultiesName: "a", departments: ["2", "3", "4"] },
-  { facultiesName: "b", departments: ["5", "4", "5"] },
-];
-// Define your body content component
-const BodyContent = ({ activeSubMenuIndex, universitiesData, onChange }) => {
-  const [curriculum, setCurriculum] = useState();
-  let curriculumId = (e) => {
-    setCurriculum(e);
-    onChange(e);
-  };
+  // const [university, setUniversity] = useState();
+  // const [isLoading, setIsLoading] = useState(true);
 
-  switch (activeSubMenuIndex) {
-    // ថ្នាក់បរិញ្ញាបត្រ
-    case 0:
-      return (
-        <>
-          <div className="p-2 md:p-2 m-auto">
-            <SliderPrograms
-              facultiesData={universitiesData}
-              curriculumId={curriculumId}
-            />
-          </div>
-        </>
-      );
-    // កម្មវិធីសិក្សា
-    case 1:
-      return (
-        <div>
-          <SliderCurriculum
-            carriculumData={universitiesData}
-            departmentId={curriculum}
-          />
-        </div>
-      );
+  // function fetchUniversity(id) {
+  //     fetch(api+'/universities/'+id, {})
+  //         .then(res => res.json())
+  //         .then(res => {
+  //             setUniversity(res.data);
+  //             setIsLoading(false);
+  //             console.log(res.data);
+  //         })
+  //         .catch(err => console.log(err));
+  // }
 
-    // តម្លៃសិក្សារ
-    case 2:
-      return (
-        <div className="grid grid-cols-5 gap-7 p-5">
-          {Images.map((img, index) => (
-            <img
-              className="h-auto transition ease-in-out delay-150   hover:-translate-y-1 hover:scale-110 duration-100 cursor-pointer"
-              src={img.img}
-              key={index}
-              alt={img.img}
-            />
-          ))}
-        </div>
-      );
-  }
-};
+  // useEffect(() => {
+  //     if (router.isReady) {
+  //         fetchUniversity(id);
+  //     }
+  // }, [router.isReady]);
 
-function University({ universitiesData, api }) {
-  const SubMenu = [
-    { name: "ថ្នាក់បរិញ្ញាបត្រ" },
-    { name: "កម្មវិធីសិក្សា" },
-    { name: "រូបភាព" },
-  ];
-  const [activeSubMenuIndex, setActiveSubMenuIndex] = useState(0);
-  // Define the click handler function
-  const handleSubMenuClick = (index) => {
-    setActiveSubMenuIndex(index);
-  };
-
-  const onChange = () => {
-    setActiveSubMenuIndex(1);
-  };
+  // if (isLoading) return (
+  //     <div className="dark:text-gray-50">Loading....</div>
+  // )
 
   return (
     <main className="content">
+      {/* banner */}
       <section>
-        <Banner
-          text={universitiesData.name_km}
-          logo={
+        <div className="flex py-2 px-2 gap-1 ">
+          <div className="flex justify-center w-1/2 h-80">
             <img
-              className="max-w-[13vw] w-fit h-[13vw] m-auto "
-              src={api + "/images/" + universitiesData.logo}
+              className="object-contain rounded-md"
+              src={api + "/images/" + university.images}
+              alt="banner"
             />
-          }
-        >
-          <img
-            className="rounded-md"
-            src={api + "/images/" + universitiesData.images}
-          />
-        </Banner>
+          </div>
+          <div className="relative w-1/2 h-80 bg-gray-600 rounded-md">
+            <div className="w-14 absolute top-2 right-4">
+              <Image className="object-contain" src={Moeys} alt="Moeys" />
+            </div>
+            <div className="w-1/2 text-white font-kh text-banner flex flex-col text-center absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 ">
+              <img
+                className="w-1/2 m-auto"
+                src={api + "/images/" + university.logo}
+                alt="logouniversity"
+              />
+              <span className="tracking-wide dark:text-gray-50">
+                {university.name_km}
+              </span>
+            </div>
+          </div>
+        </div>
       </section>
-      {/* ព័ត៍មានទូទៅ */}
-      <div className="py-4 px-5 min-h-[14vw]">
+       {/* ព័ត៍មានទូទៅ */}
+       <div className="py-4 px-5 min-h-[14vw]">
         <h1 className="font-kh font-bold text-xl border-y-2 text-center py-2 px-2">
           ព័ត៍មានទូទៅ
         </h1>
         <div className="h-fit py-5  ">
           <span className="font-khBtB text-base text-paragraph py-4 -tracking-wide">
-            <ReadMore>{universitiesData.about_km}</ReadMore>
+            <ReadMore>{university.about_km}</ReadMore>
           </span>
         </div>
       </div>
-      {/* sub navbar */}
+      {/* sub navbar
       <div className="p-2 m-2 border-y-2 item-center">
         <ul className="flex gap-2 font-kh cursor-pointer flex-wrap">
           {SubMenu.map((name, index) => (
             <li
               key={index}
               className={
-                activeSubMenuIndex === index 
+                activeSubMenuIndex === index
                   ? "border-y-2  border-red-500 p-2 text-red-500 font-semibold"
                   : "p-2 border-y-2 bg-opacity-0 transition cursor-pointer hover:border-y-2 hover:border-red-400"
               }
@@ -176,16 +119,12 @@ function University({ universitiesData, api }) {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
       {/* body */}
       <div className=" flex flex-col h-fit gap-2 ">
         {/* content */}
         <div className="w-full lg:w-full h-82vh">
-          <BodyContent
-            activeSubMenuIndex={activeSubMenuIndex}
-            universitiesData={universitiesData}
-            onChange={onChange}
-          />
+          {/* <BodyContent activeSubMenuIndex={activeSubMenuIndex} /> */}
         </div>
         {/* contact */}
         <div className="h-fit mt-5 font-kh rounded bg-footer pb-5 ">
@@ -202,8 +141,8 @@ function University({ universitiesData, api }) {
               </div>
               <div className="flex flex-col divide-y divide-slate-500">
                 <span className="p-2 text-center">
-                  <a href={"tel:" + universitiesData.phone}>
-                    {universitiesData.phone}
+                  <a href={"tel:" + university.phone}>
+                    {university.phone}
                   </a>
                 </span>
               </div>
@@ -217,8 +156,8 @@ function University({ universitiesData, api }) {
               </div>
               <div className="flex flex-col divide-y divide-slate-500">
                 <span className="p-2 text-center">
-                  <a href={"mailto:" + universitiesData.email}>
-                    {universitiesData.email}
+                  <a href={"mailto:" + university.email}>
+                    {university.email}
                   </a>
                 </span>
               </div>
@@ -233,10 +172,10 @@ function University({ universitiesData, api }) {
               <div className="flex flex-col divide-y divide-slate-500">
                 <span className="p-2 text-center font-bold">
                   <a
-                    href={"http://" + universitiesData.website}
+                    href={"http://" + university.website}
                     target="_blank"
                   >
-                    {universitiesData.website}
+                    {university.website}
                   </a>
                 </span>
               </div>
@@ -252,7 +191,7 @@ function University({ universitiesData, api }) {
                 <span className="p-2  text-center ">
                   <iframe
                     className="w-[20rem] h-[20rem]"
-                    src={universitiesData?.university_branches?.location}
+                    src={university?.university_branches[0]?.location}
                     allowFullScreen=""
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -263,28 +202,19 @@ function University({ universitiesData, api }) {
           </div>
         </div>
       </div>
+
+     
     </main>
   );
 }
-export default ({ userData, universitiesData, api }) => {
-  return (
-    <Layout
-      icon={api + "/images/" + universitiesData.logo}
-      title={universitiesData.name_km}
-      session={userData}
-    >
-      <University universitiesData={universitiesData} api={api} />
-    </Layout>
-  );
-};
 
 export async function getStaticPaths() {
   let data = [];
   // Call an external API endpoint to get posts
   await fetch("http://127.0.0.1:8000/api/universities")
     .then((res) => res.json())
-    .then((res) => {
-      data = res.data;
+    .then(async (res) => {
+      data = await res.data;
     })
     .catch((error) => console.log(error));
 
@@ -302,21 +232,18 @@ export async function getStaticProps(context) {
   const { params } = context;
   const id = params.id;
 
-  let api = "http://127.0.0.1:8000/api";
   let universitiesData = [];
 
   //fetch data of university
-  await fetch(`${api}/universities/${id}`)
+  await fetch(`http://127.0.0.1:8000/api/universities/${id}`)
     .then((res) => res.json())
     .then((res) => {
       universitiesData = res.data;
     })
     .catch((error) => console.log(error));
-
   return {
     props: {
-      universitiesData: universitiesData,
-      api: api,
+      university: universitiesData,
     },
   };
 }

@@ -6,10 +6,9 @@ export default function Pagination({
   currentPage,
   onPageChange,
 }) {
-
   const pagesCount = Math.ceil(items / pageSize);
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
-  
+
   function prev() {
     if (currentPage != 1) {
       onPageChange(currentPage - 1);

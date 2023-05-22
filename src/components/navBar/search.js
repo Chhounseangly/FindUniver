@@ -3,7 +3,7 @@ import { BsSearch } from "react-icons/bs";
 import useSWR from "swr";
 import Card from "../indexpage/card";
 
-//User Data fetching
+//Universities Data fetching
 const fetcher = async (url) => {
   const datas = await fetch(url).then((res) => res.json());
   return datas.data;
@@ -14,20 +14,31 @@ export default function SearchBar() {
     `http://127.0.0.1:8000/api/universities`,
     fetcher
   );
-  const array = dataSearch || [];
-  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
   const [foundedData, setFoundedData] = useState([]);
 
-  let searchFilter = (e) => {
-    return e.filter((el) => el.name_km.toLowerCase().includes(query));
+  const handleChange = (e) => {
+    setSearch(e.target.value);
   };
 
-  //Handling the input on our search bar
-  const handleChange = (e) => {
-    //Applying our search filter function to our array of countries recieved from the API
-    setQuery(e.target.value);
-    setFoundedData(searchFilter(array));
-  };
+  //seaching university
+  function getSearching() {
+    if (dataSearch) {
+      if (search.length >= 2) {
+        var charSearch = new RegExp(search.split("").join(".*"), "i");
+        return dataSearch?.filter((data) => {
+          if (data.name_km.match(charSearch)) {
+            return data;
+          }
+        });
+      }
+      return [];
+    }
+  }
+
+  useEffect(() => {
+    setFoundedData(getSearching());
+  }, [search]);
   return (
     <div className="flex flex-col w-full items-center">
       <form className="w-full p-7 md:w-80percent hover:scale-100 transition-all ">
@@ -56,7 +67,7 @@ export default function SearchBar() {
       </form>
       {/* display searchData */}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 sm:gap-x-10 md:grid-cols-3 lg:grid-cols-4 m-auto min-h-screen   w-80percent ">
-        {foundedData.map((university) => {
+        {foundedData?.map((university) => {
           return <Card university={university} />;
         })}
       </div>

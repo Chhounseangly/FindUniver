@@ -10,6 +10,7 @@ module.exports = {
         'bg-card': "linear-gradient(163deg, #00ff75 0%, #3700ff 100%)",
       },
       backgroundImage: {
+        'bg-major': "url('/CS.png')",
         'bg-aboutUs': "url('https://wallpaperaccess.com/full/1426870.png')",
         "background": "linear-gradient(240deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 50%, rgba(0,212,255,1) 100%)",
         "bg-banner": "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-700 via-blue-800 to-gray-900"

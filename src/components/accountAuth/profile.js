@@ -19,7 +19,6 @@ export default function Form({ session }) {
     toggleContent("search");
   };
 
-  console.log(status)
   return (
     <>
       {status == "unauthenticated" && (
@@ -36,7 +35,6 @@ export default function Form({ session }) {
               </button>
             </div>
           </Link>
-
           <div className="item-center justify-center text-center m-auto">
             <button className="m-auto " onClick={() => signIn()}>
               <div className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500">

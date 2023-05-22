@@ -135,7 +135,7 @@ const ListRadioGroup = ({ options, groupName }) => {
             name={groupName}
             value={option.grade[index]}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 dark:bg-gray-700 dark:border-gray-600"
+            className="w-4 h-4 text-blue-600 dark:bg-gray-700 dark:border-gray-600" 
             required
           />
           <label className="w-fit flex flex-row justify-center m-auto text-sm font-medium text-black text-center">

@@ -7,7 +7,6 @@ export const authOptions = {
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-
       async authorize(credentials, req) {
         const res = await fetch("http://127.0.0.1:8000/api/login", {
           method: "POST",
@@ -39,21 +38,5 @@ export const authOptions = {
       return session;
     },
   },
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     if (user) {
-  //       token = user;
-  //     }
-  //     return token;
-  //   },
-
-  //   async session({ session, token, user }) {
-  //     // Send properties to the client, like an access_token and user id from a provider.
-  //     session.accessToken = token.accessToken;
-  //     session.user.id = token.id;
-
-  //     return session;
-  //   },
-  // },
 };
 export default NextAuth(authOptions);

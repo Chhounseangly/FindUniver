@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -7,7 +7,11 @@ import "swiper/css/navigation";
 
 import { Keyboard, EffectCoverflow, Pagination, Navigation } from "swiper";
 
-export default function CarouselPrograms({ facultiesData }) {
+export default function CarouselPrograms({ facultiesData, curriculumId }) {
+  const goToCurriculum = (e) => {
+    curriculumId(e);
+  };
+
   return (
     <Swiper
       slidesPerView={3}
@@ -58,26 +62,27 @@ export default function CarouselPrograms({ facultiesData }) {
       modules={[Keyboard, EffectCoverflow, Pagination, Navigation]}
       className="swiper_container"
     >
-      {facultiesData.map((faculties, index) => (
-        <SwiperSlide key={index}>
+      {facultiesData?.faculties?.map((faculties) => (
+        <SwiperSlide key={faculties.id}>
           <div className="h-80vh border-2 border-gray-800 rounded-md text-black  bg-white shadow-sm shadow-gray-800 font-kh">
             <h1 className="border-2 border-gray-300 bg-gray-800 text-white  rounded-t-md  text-center p-3 swiper-no-swiping ">
-              {faculties.facultiesName}
+              {faculties.name_km}
             </h1>
             <ul className="w-full h-ful font-kh list-none cursor-pointer">
-              {faculties.departments.map((department, index) => (
+              {faculties.departments.map((department) => (
                 <li
+                  onClick={() => goToCurriculum(department.id)}
                   className="border-b-2 p-2 hover:border-b-2 hover:border-b-black"
-                  key={index}
+                  key={department.id}
                 >
-                  {department[0]}
+                  {department.name_km}
                 </li>
               ))}
             </ul>
           </div>
         </SwiperSlide>
       ))}
-      <div className="slider-controler hidden md:block ">
+      <div className="slider-controler hidden md:block">
         <div className="swiper-button-prev "></div>
         <div className="swiper-button-next "></div>
       </div>

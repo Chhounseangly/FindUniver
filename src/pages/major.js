@@ -8,7 +8,7 @@ import hrm from "../images/majors/hrm.jpg";
 import architectural from "../images/majors/architectural.jpg";
 import Link from "next/link";
 // import { toggleContent } from "@/pages/components/togglecontent";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //icons
 import { BsSearch } from "react-icons/bs";
@@ -49,15 +49,34 @@ const majors = [
 ];
 
 function Majors() {
-  const [filterValue, setFilterValue] = useState("");
+  const [resultSearch, setResultSearch] = useState("");
+  const [majorFound, setMajorFound] = useState([]);
 
   // filter list by name
-  const filteredList = majors.filter((item) =>
-    item.majorstypeKH.toLowerCase().includes(filterValue.toLowerCase())
-  );
+  function majorSeach() {
+    if (majors) {
+      if (resultSearch.length >= 2) {
+        var majorSearch = new RegExp(resultSearch.split("").join(".*"), "i");
+        return majors?.filter((data) => {
+          if (
+            data.majorstypeEN.match(majorSearch) ||
+            data.majorstypeKH.match(majorSearch)
+          ) {
+            return data;
+          }
+        });
+      }
+      return majors;
+    }
+  }
+
   const FilterValue = (e) => {
-    setFilterValue(e.target.value);
+    setResultSearch(e.target.value);
   };
+
+  useEffect(() => {
+    setMajorFound(majorSeach());
+  }, [FilterValue]);
 
   return (
     <div className="w-full">
@@ -72,7 +91,7 @@ function Majors() {
               className="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  font-kh"
               placeholder="ស្វែងរក​ជំនាញ..."
               required
-              value={filterValue}
+              value={resultSearch}
               onChange={FilterValue}
             />
           </div>
@@ -80,36 +99,30 @@ function Majors() {
       </div>
 
       <div className="px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:px-16 -top-10 relative majorBody">
-        {filteredList.filterValue === "" ? (
-          ""
-        ) : !filteredList.length ? (
-          <div className="font-kh text-2xl text-white">មិនមាទិន្នន័យ</div>
-        ) : (
-          filteredList.map((item, index) => (
-            <Link key={index} href={"university"}>
-              <div
-                className=" shadow-md 
+        {majorFound.map((item, index) => (
+          <Link key={index} href={`majors/${1}`}>
+            <div
+              className=" shadow-md 
                 transition-all duration-200
                 cursor-pointer hover:scale-105 rounded-lg h-full bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 "
-              >
-                <Image
-                  className="h-70percent w-full rounded-t-lg"
-                  src={item.img}
-                  alt={item.img}
-                  priority={true}
-                />
-                <div className="h-30percent flex flex-col justify-center ml-3 py-2">
-                  <h5 className="text-base tracking-wider text-gray-900 dark:text-white font-khBtB">
-                    {item.majorstypeKH}
-                  </h5>
-                  <h5 className="text-base tracking-wide text-gray-900 dark:text-white font-khBtB">
-                    {item.majorstypeEN}
-                  </h5>
-                </div>
+            >
+              <Image
+                className="h-70percent w-full rounded-t-lg"
+                src={item.img}
+                alt={item.img}
+                priority={true}
+              />
+              <div className="h-30percent flex flex-col justify-center ml-3 py-2">
+                <h5 className="text-base tracking-wider text-gray-900 dark:text-white font-khBtB">
+                  {item.majorstypeKH}
+                </h5>
+                <h5 className="text-base tracking-wide text-gray-900 dark:text-white font-khBtB">
+                  {item.majorstypeEN}
+                </h5>
               </div>
-            </Link>
-          ))
-        )}
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
