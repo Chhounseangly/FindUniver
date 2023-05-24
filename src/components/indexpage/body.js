@@ -3,52 +3,20 @@ import Pagination from "./pagination";
 
 import Card from "./card";
 
-const locationOptions = [
-  { value: "", text: "ទាំងអស់" },
-  { value: "Phnom Penh", text: "ភ្នំពេញ" },
-  { value: "Kandal", text: "កណ្ដាល" },
-  { value: "KampongCham", text: "កំពង់ចាម" },
-  { value: "KampongChhnang", text: "កំពង់ឆ្នាំង" },
-  { value: "KampongThom", text: "កំពង់ធំ" },
-
-  { value: "KampongSpeu", text: "កំពង់ស្ពឺ" },
-  { value: "Kampot", text: "កំពត" },
-  { value: "Kep", text: "កែប" },
-  { value: "KohKong", text: "កោះកុង" },
-
-  { value: "Kratie", text: "ក្រចេះ" },
-  { value: "Takeo", text: "តាកែវ" },
-  { value: "TboungKhmom", text: "ត្បូងឃ្មុំ" },
-  { value: "BanteayMeanchey", text: "បន្ទាយមានជ័យ" },
-
-  { value: "Battambang", text: "បាត់ដំបង" },
-  { value: "Pailin", text: "ប៉ៃលិន" },
-  { value: "Pursat", text: "ពោធិ៍សាត់" },
-
-  { value: "PreahVihear", text: "ព្រះវិហារ" },
-  { value: "PreahSihanouk", text: "ព្រះសីហនុ" },
-  { value: "PreyVeng", text: "ព្រៃវែង" },
-
-  { value: "Mondulkiri", text: "មណ្ឌលគីរី" },
-  { value: "Ratanakiri", text: "រតនគីរី" },
-  { value: "SiemReap", text: "សៀមរាប" },
-
-  { value: "StungTreng", text: "ស្ទឹងត្រែង" },
-  { value: "SvayRieng", text: "ស្វាយរៀង" },
-  { value: "OddarMeanchey", text: "ឧត្តរមានជ័យ" },
-];
-
 const typesOpetions = [
   { value: "", text: "ទាំងអស់" },
   { value: "Public", text: "រដ្ឋ" },
   { value: "Private", text: "ឯកជន" },
 ];
 
-function Body({ universitiesData }) {
+function Body({ universitiesData, provincesData, universityTypes  }) {
+
   const [locationsSelete, setLocationsSelete] = useState(
-    locationOptions[0].value
+    // locationOptions[0].value
   );
-  const [typeSelete, setTypeSelete] = useState(typesOpetions[0].value);
+  const [typeSelete, setTypeSelete] = useState(
+    // typesOpetions[0].value
+    );
   const [universityFilter, setUniversityFilter] = useState([]);
 
   const handleLocations = (e) => {
@@ -115,12 +83,23 @@ function Body({ universitiesData }) {
             onChange={handleLocations}
             className="select-locations font-kh  py-2 px-4 w-48 cursor-pointer rounded"
           >
+            {provincesData.map((localOption) => (
+              <option key={localOption.id} value={localOption.name_km}>
+                {localOption.name_km}
+              </option>
+            ))}
+          </select>
+          {/* <select
+            value={locationsSelete}
+            onChange={handleLocations}
+            className="select-locations font-kh  py-2 px-4 w-48 cursor-pointer rounded"
+          >
             {locationOptions.map((localOption) => (
               <option key={localOption.value} value={localOption.value}>
                 {localOption.text}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
         <div className="flex flex-col bg-location-color gap-1 rounded p-2">
           <h5 className="text-h5 font-bold text-black font-kh">ប្រភេទ</h5>
@@ -129,9 +108,9 @@ function Body({ universitiesData }) {
             onChange={handleType}
             className="select-types font-kh py-2 px-4 w-48 cursor-pointer rounded"
           >
-            {typesOpetions.map((typeOption) => (
-              <option key={typeOption.value} value={typeOption.value}>
-                {typeOption.text}
+            {universityTypes.map((typeOption) => (
+              <option key={typeOption.id} value={(typeOption.type_km)}>
+                {typeOption.type_km}
               </option>
             ))}
           </select>

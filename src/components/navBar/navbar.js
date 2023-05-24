@@ -24,7 +24,6 @@ const menuList = [
 export default function NavBar({ session }) {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const toggleSearch = () => {
-
     setSearchOpen(!isSearchOpen);
     // toggleContent("bannerLogo");
     toggleContent("dropdown");
@@ -107,7 +106,7 @@ export default function NavBar({ session }) {
             damping: 20,
           }}
         >
-            {/* component Search */}
+          {/* component Search */}
           <div className="search bg-banner-color justify-center flex absolute w-full">
             <SearchBar />
           </div>
@@ -116,7 +115,7 @@ export default function NavBar({ session }) {
       {/* reposive toggleMenu */}
       {isMenuOpen && (
         <motion.div
-          initial={{ y: -10, opacity: 0 }}
+          initial={{ y: 0, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 0, opacity: 0 }}
           transition={{
@@ -125,7 +124,7 @@ export default function NavBar({ session }) {
             damping: 20,
           }}
         >
-          <div className="bg-black h-screen flex justify-center menuResponsive">
+          <div className="bg-black h-screen flex justify-center menuResponsive  ">
             <ul className="w-full flex flex-col font-heading text-white text-center space-y-10">
               <div className="gap-10 m-10 flex flex-col ">
                 <Menu menuList={menuList} />
@@ -140,5 +139,3 @@ export default function NavBar({ session }) {
     </>
   );
 }
-
-

@@ -1,7 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 
-import Link from "next/link";
 import { toggleContent } from "../togglecontent";
 
 //icons and images
@@ -10,6 +9,9 @@ import profile from "../../images/pf.png";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import { HiOutlineArrowLeftOnRectangle } from "react-icons/hi2";
 import { AiOutlineUser } from "react-icons/ai";
+import SignUp from "@/components/accountAuth/signup";
+import Login from "@/components/accountAuth/login";
+import CustomForm from "../customForm/customfrom";
 
 export default function Form({ session }) {
   const { status } = useSession();
@@ -18,25 +20,51 @@ export default function Form({ session }) {
     setDropdownProfile(!isDropdownProfile);
     toggleContent("search");
   };
+  const [signUpOpen, setsignUpOpen] = useState(false);
+  const [signInOpen, setsignInOpen] = useState(false);
+
+  let switchToggle = (e) => {
+    if (signInOpen == true) {
+      setsignUpOpen(e);
+      setsignInOpen(!e);
+    } else if (signUpOpen == true) {
+      setsignInOpen(e);
+      setsignUpOpen(!e);
+    }
+  };
+
+  //show SignUp
+  const handleSignUp = () => {
+    setsignUpOpen(true);
+  };
+  //show Login
+  const handleLoginIn = () => {
+    setsignInOpen(true);
+  };
+  const handleClose = () => {
+    if (signUpOpen == true) {
+      setsignUpOpen(false);
+    } else setsignInOpen(false);
+  };
 
   return (
     <>
       {status == "unauthenticated" && (
         <>
-          <Link href="/account/signup">
-            <div className="item-center justify-center text-center m-auto ">
-              <button className="m-auto ">
-                <div className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500">
-                  <span className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"></span>
-                  <span className="relative block w-20 py-2 bg-[#1A2238] border border-current">
-                    Sign up
-                  </span>
-                </div>
-              </button>
-            </div>
-          </Link>
+          {/* <Link href="/account/signup"> */}
+          <div className="item-center justify-center text-center m-auto ">
+            <button className="m-auto" onClick={handleSignUp}>
+              <div className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500">
+                <span className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"></span>
+                <span className="relative block w-20 py-2 bg-[#1A2238] border border-current">
+                  Sign up
+                </span>
+              </div>
+            </button>
+          </div>
+          {/* </Link> */}
           <div className="item-center justify-center text-center m-auto">
-            <button className="m-auto " onClick={() => signIn()}>
+            <button className="m-auto " onClick={handleLoginIn}>
               <div className="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500">
                 <span className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"></span>
                 <span className="relative block w-20 py-2 bg-[#1A2238] border border-current">
@@ -45,6 +73,22 @@ export default function Form({ session }) {
               </div>
             </button>
           </div>
+          {/* SignUp */}
+          <CustomForm
+            open={signUpOpen}
+            title={"Sign Up to your account"}
+            handleClose={handleClose}
+          >
+            <SignUp OpenLogin={switchToggle} />
+          </CustomForm>
+          {/* Login  */}
+          <CustomForm
+            open={signInOpen}
+            title={"Login to your account"}
+            handleClose={handleClose}
+          >
+            <Login OpenSignUp={switchToggle} />
+          </CustomForm>
         </>
       )}
       {status === "authenticated" && (
@@ -86,15 +130,14 @@ export default function Form({ session }) {
                 <ul className="py-2 px-4 ">
                   <li className="flex m-auto items-center  w-full hover:border-r-2 border-red-300">
                     <AiOutlineUser />
-                    <Link
-                      href={`../account/${
-                        !session ? null : session.id
-                      }/profile`}
+                    {/* <Link href={`../account/profile`}> */}
+                    <div
+                      className="font-kh block px-4 py-2 text-sm  text-gray-200 "
+                      // onClick={handleClickOpen}
                     >
-                      <div className="font-kh block px-4 py-2 text-sm  text-gray-200 ">
-                        គណនី
-                      </div>
-                    </Link>
+                      គណនី
+                    </div>
+                    {/* </Link> */}
                   </li>
                   <li className="flex m-auto items-center  w-full hover:border-r-2 border-red-400">
                     <MdOutlineFavoriteBorder />

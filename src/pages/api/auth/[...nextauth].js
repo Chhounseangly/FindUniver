@@ -22,12 +22,12 @@ export const authOptions = {
         if (res.ok && user) {
           return user;
         } else return null;
-      },  
+      },
     }),
   ],
 
   pages: {
-    signIn: "/account/login",
+    // signIn: "/account/login",
   },
   callbacks: {
     async jwt({ token, user }) {

@@ -173,7 +173,7 @@ export default function Home({ universities, api }) {
                       <td className="px-6 py-4">
                         <img
                           src={
-                            "http://localhost:8000/api/images/" +
+                            "http://localhost:8000/api/image/" +
                             university.logo
                           }
                           alt="university_logo"

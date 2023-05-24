@@ -12,8 +12,8 @@ export default function Menu({menuList}) {
           <Link
             className={`${
               router.pathname === menuList.href
-                ? "text-red-500"
-                : "text-white  hover:text-red-500"
+                ? "text-[#FF6A3D]"
+                : "text-white  hover:text-[#FF6A3D]"
             } font-kh`}
             href={menuList.href}
           >
