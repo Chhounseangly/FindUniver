@@ -7,7 +7,6 @@ import { BsTelephone, BsLink45Deg } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { TbMap2 } from "react-icons/tb";
 
-
 function ReadMore({ children }) {
   const text = children;
   const [showFullText, setShowFullText] = useState(false);
@@ -91,8 +90,8 @@ export default function detail({ university }) {
           </div>
         </div>
       </section>
-       {/* ព័ត៍មានទូទៅ */}
-       <div className="py-4 px-5 min-h-[14vw]">
+      {/* ព័ត៍មានទូទៅ */}
+      <div className="py-4 px-5 min-h-[14vw]">
         <h1 className="font-kh font-bold text-xl border-y-2 text-center py-2 px-2">
           ព័ត៍មានទូទៅ
         </h1>
@@ -141,9 +140,7 @@ export default function detail({ university }) {
               </div>
               <div className="flex flex-col divide-y divide-slate-500">
                 <span className="p-2 text-center">
-                  <a href={"tel:" + university.phone}>
-                    {university.phone}
-                  </a>
+                  <a href={"tel:" + university.phone}>{university.phone}</a>
                 </span>
               </div>
             </div>
@@ -156,9 +153,7 @@ export default function detail({ university }) {
               </div>
               <div className="flex flex-col divide-y divide-slate-500">
                 <span className="p-2 text-center">
-                  <a href={"mailto:" + university.email}>
-                    {university.email}
-                  </a>
+                  <a href={"mailto:" + university.email}>{university.email}</a>
                 </span>
               </div>
             </div>
@@ -171,10 +166,7 @@ export default function detail({ university }) {
               </div>
               <div className="flex flex-col divide-y divide-slate-500">
                 <span className="p-2 text-center font-bold">
-                  <a
-                    href={"http://" + university.website}
-                    target="_blank"
-                  >
+                  <a href={"http://" + university.website} target="_blank">
                     {university.website}
                   </a>
                 </span>
@@ -202,8 +194,6 @@ export default function detail({ university }) {
           </div>
         </div>
       </div>
-
-     
     </main>
   );
 }

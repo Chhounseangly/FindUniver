@@ -1,14 +1,11 @@
-import Link from "next/link";
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
 //icons
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
-import { BiPhone, BiUserCircle } from "react-icons/bi";
 import usePasswordToggle from "@/components/togglepassword";
-import { getSession, signIn } from "next-auth/react";
-import NextNProgress from "nextjs-progressbar";
+import { signIn } from "next-auth/react";
 import { Alert } from "@mui/material";
 
 function SignUp({ OpenLogin }) {
@@ -40,12 +37,14 @@ function SignUp({ OpenLogin }) {
   useEffect(() => {
     let newError = {};
     let newCorrect = {};
+
     if (formData.fullName.length > 2) {
       newCorrect.name = "Correct";
     }
     if (isValidEmail(formData.email)) {
       newCorrect.email = "Correct";
     }
+
     if (formData.cfPassword && formData.password) {
       if (formData.cfPassword != formData.password) {
         newError.cfPassword = "Please make sure your password match.";
@@ -74,6 +73,7 @@ function SignUp({ OpenLogin }) {
       newError.cfPassword = "confirm password is requier!";
     }
     setErrors(newError);
+
     if (
       formData.fullName &&
       formData.email &&
@@ -84,35 +84,29 @@ function SignUp({ OpenLogin }) {
         email: formData.email,
         name: formData.fullName,
         password: formData.password,
-        password_confirmation: formData.cfPassword,
+        cfPassword: formData.cfPassword,
       };
 
-      // Set Loading
       setIsLoading(true);
-
-      await fetch("http://127.0.0.1:8000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.status === 201) {
-            setPageState((old) => ({ ...old, processing: true, err: "" }));
-            signIn("credentials", {
-              email: data.email,
-              password: data.password,
-              redirect: false,
-            }).then((res) => {
-              if (res.ok) {
-                Router.push("/");
-                setIsLoading(false);
-              }
-            });
-          } else if (res.status === 200) {
+      if (data.password != data.cfPassword) {
+        setPageState((old) => ({
+          ...old,
+          processing: false,
+          err: "Please enter same password",
+        }));
+        setIsLoading(false);
+      } else {
+        const res = signIn("signup", {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          password_confirmation: data.cfPassword,
+          redirect: false,
+        }).then((res) => {
+          if (res.ok) {
+            Router.push("/");
+            setIsLoading(false);
+          } else if (res.status === 400) {
             setPageState((old) => ({
               ...old,
               processing: false,
@@ -121,6 +115,15 @@ function SignUp({ OpenLogin }) {
             setIsLoading(false);
           } else setIsLoading(false);
         });
+        if (res) {
+          setPageState((old) => ({
+            ...old,
+            processing: false,
+            err: "This email is already registered",
+          }));
+          setIsLoading(false);
+        }
+      }
     }
   };
   const handleChange = (event) => {
@@ -330,7 +333,7 @@ function SignUp({ OpenLogin }) {
         >
           <svg
             aria-hidden="true"
-            class="w-10 h-10  animate-spin dark:text-gray-600 fill-green-500"
+            className="w-10 h-10  animate-spin dark:text-gray-600 fill-green-500"
             viewBox="0 0 100 101"
             fill="none"
           >

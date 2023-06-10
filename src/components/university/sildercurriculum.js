@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 import { Keyboard, EffectCreative, Pagination, Navigation } from "swiper";
 
 export default function CarouselCarriculum({ carriculumData, departmentId }) {
-  console.log(carriculumData.faculties);
   // console.log(carriculumData.faculties[departmentId - 1].departments[departmentId - 1].majors);
 
   return (

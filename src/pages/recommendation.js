@@ -15,7 +15,7 @@ function RecommendationMajor() {
       <div className="w-4/5 h-fit shadow-lg mx-auto  bg-white">
         {/* sub navbar */}
         <div className="p-2 border-b-2 border-black border-opacity-50 item-center">
-          <ul className="flex gap-5 font-kh cursor-pointer flex-wrap">
+          <ul className="flex gap-5 font-khBtB cursor-pointer flex-wrap">
             {SubMenu.map((name, index) => (
               <li
                 key={index}

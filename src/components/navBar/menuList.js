@@ -3,7 +3,13 @@ const { useRouter } = require("next/router");
 
 
 // menuList
-export default function Menu({menuList}) {
+export default function Menu() {
+  const menuList = [
+  { name: "ទំព័រដើម", href: "/" },
+  { name: "មុខជំនាញ", href: "/major" },
+  { name: "ណែនាំមុខជំនាញ", href: "/recommendation" },
+  { name: "អំពីយើង", href: "/aboutus" },
+];
   const router = useRouter();
   return (
     <>
@@ -14,7 +20,7 @@ export default function Menu({menuList}) {
               router.pathname === menuList.href
                 ? "text-[#FF6A3D]"
                 : "text-white  hover:text-[#FF6A3D]"
-            } font-kh`}
+            } font-khBtB`}
             href={menuList.href}
           >
             {menuList.name}
@@ -24,4 +30,3 @@ export default function Menu({menuList}) {
     </>
   );
 }
-

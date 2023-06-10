@@ -1,7 +1,14 @@
-import { SessionProvider } from "next-auth/react";
 import "@/styles/globals.css";
+import { SessionProvider } from "next-auth/react";
 import NextNProgress from "nextjs-progressbar";
+import { Noto_Serif_Khmer } from "next/font/google";
 
+const khBtB = Noto_Serif_Khmer({
+  subsets: ["khmer"],
+  display: "block",
+  weight: ["400"],
+  variable: "--Battambang",
+});
 
 export default function App({ Component, pageProps, session }) {
   if (Component.getLayout) {
@@ -14,9 +21,14 @@ export default function App({ Component, pageProps, session }) {
   }
   return (
     <>
-      <NextNProgress color="linear-gradient(to right, #8a2387, #e94057, #f27121)" options={{ showSpinner: false }} />
+      <NextNProgress
+        color="linear-gradient(to right, #8a2387, #e94057, #f27121)"
+        options={{ showSpinner: false }}
+      />
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <main className={`${khBtB.variable}`}>
+          <Component {...pageProps} />
+        </main>
       </SessionProvider>
     </>
   );

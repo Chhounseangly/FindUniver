@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Router from "next/router";
 import { Alert } from "@mui/material";
 
@@ -153,10 +152,10 @@ export default function Login({ OpenSignUp }) {
       <button
         disabled={pageState.processing}
         type="submit"
-        class="w-full relative inline-flex items-center justify-start px-6 py-3 mt-4  overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group"
+        className="w-full relative inline-flex items-center justify-start px-6 py-3 mt-4  overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group"
       >
-        <span class="w-72 h-56  rounded rotate-[-40deg] bg-yellow-400  absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
-        <span class="text-center relative w-full font-semibold  text-black transition-colors duration-300 ease-in-out ">
+        <span className="w-72 h-56  rounded rotate-[-40deg] bg-yellow-400  absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+        <span className="text-center relative w-full font-semibold  text-black transition-colors duration-300 ease-in-out ">
           Log in
         </span>
       </button>
@@ -198,7 +197,7 @@ export default function Login({ OpenSignUp }) {
         >
           <svg
             aria-hidden="true"
-            class="w-10 h-10  animate-spin dark:text-gray-600 fill-green-500"
+            className="w-10 h-10  animate-spin dark:text-gray-600 fill-green-500"
             viewBox="0 0 100 101"
             fill="none"
           >

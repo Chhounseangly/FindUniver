@@ -4,6 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
+import Image from "next/image";
 
 // import ReactStars from "react-stars";
 
@@ -31,11 +32,15 @@ export default function Card({ university }) {
       <Link href={`/detail/${university.id}`}>
         <div className="h-64 w-60 rounded-md flex flex-col shadow-lg shadow-indigo-500/40">
           <div className="h-3/5 relative">
-            <div className="rounded-t h-full w-full flex">
-              <img
-                className="h-32 max-w-[8rem]  m-auto"
-                src={api + "/images/" + university?.logo}
+            <div className={`rounded-t  h-full w-full flex`}>
+              <Image
+                className="h-32 max-w-[8rem] m-auto"
+                width={130}
+                height={100}
+                quality={100}
+                src={api + "/image/" + university?.logo}
                 alt={university?.name_km}
+                priority
               />
             </div>
             <div onClick={toggleClick} className="group/txtshow ">

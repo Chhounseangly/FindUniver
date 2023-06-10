@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Inter } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -69,14 +68,14 @@ export default function Home({ universities, api }) {
         <link rel="icon" href="/logo.png" />
       </Head>
       <header>
-        <nav className="navbar font-khBtB">
-          <div className="container flex justify-between w-[90%] m-auto py-2">
+        <nav className="navbar font-khBtB md:w-[90%] mx-auto ">
+          <div className=" flex justify-between m-auto py-2">
             <a className="navbar-brand text-success" href="#">
               <Image
                 src="/logo.png"
                 alt="Logo"
-                width="200"
-                height="200"
+                width={150}
+                height={200}
                 className="d-inline-block align-text-top"
               />
               <span className="ms-2">អ្នកគ្រប់គ្រង</span>
@@ -116,7 +115,7 @@ export default function Home({ universities, api }) {
           </div>
         </nav>
       </header>
-      <main className="container font-kh w-[90%] m-auto">
+      <main className=" font-khBtB m-auto md:w-[90%] mx-auto">
         <h2 className="text-base m-2 text-gray-900">បញ្ជីសកលវិទ្យាល័យ</h2>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -171,13 +170,13 @@ export default function Home({ universities, api }) {
                         {university.id}
                       </td>
                       <td className="px-6 py-4">
-                        <img
-                          src={
-                            "http://localhost:8000/api/image/" +
-                            university.logo
-                          }
-                          alt="university_logo"
-                          className="h-16"
+                        <Image
+                          width={80}
+                          height={100}
+                          src={api + "/image/" + university.logo}
+                          alt={api + "/image/" + university.logo}
+                          className="h-18"
+                          priority
                         />
                       </td>
                       <td className="px-6 py-4">{university.name_km}</td>

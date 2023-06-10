@@ -6,7 +6,13 @@ import { AiOutlineClose } from "react-icons/ai";
 
 export default function CustomForm({ children, title, open, handleClose }) {
   return (
-    <Dialog open={open} fullWidth  >
+    <Dialog
+      open={open}
+      fullWidth
+      sx={{
+        backdropFilter: "blur(1px)",
+      }}
+    >
       <DialogTitle className="bg-gray-900 text-white flex justify-between">
         {title}
         <Button className="-right-5" onClick={handleClose}>

@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { HiOutlineCloudUpload } from "react-icons/hi";
+import Image from "next/image";
 
-export default function addUniversity() {
+export default function addUniversity({ universityTypes, provinces }) {
   // domain api
   let api = "http://127.0.0.1:8000/api";
   const router = useRouter();
-
-  // data fetch from server
-  const [provinces, setProvinces] = useState([]);
-  const [universityTypes, setUniversityTypes] = useState([]);
 
   // data input
   const [logo, setLogo] = useState();
@@ -33,36 +30,6 @@ export default function addUniversity() {
   const [email, setEmail] = useState(null);
   const [website, setWebsite] = useState(null);
 
-  // Get provinces from api
-  function fetchProvinces() {
-    fetch(api + "/provinces", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setProvinces(res.data);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  // Get university types from api
-  function fetchUniversityTypes() {
-    fetch(api + "/university_types", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setUniversityTypes(res.data);
-      })
-      .catch((err) => console.log(err));
-  }
-
   // Set logo when input image (logo) is changed
   const inputLogo = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -81,7 +48,7 @@ export default function addUniversity() {
     }
   };
 
-  const addUniversity = (e) => {
+  const addUniversity = async (e) => {
     // Stop the form from submitting and refreshing the page.
     e.preventDefault();
 
@@ -114,7 +81,6 @@ export default function addUniversity() {
           address_km: addressKM,
           address_en: addressEN,
         };
-
         fetch(api + "/university_branches", {
           method: "POST",
           headers: {
@@ -125,7 +91,6 @@ export default function addUniversity() {
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res);
             router.push("/admin").then((r) => console.log("success", r));
           })
           .catch((err) => console.log("error", err));
@@ -133,13 +98,8 @@ export default function addUniversity() {
       .catch((err) => console.log("error", err));
   };
 
-  useEffect(() => {
-    fetchProvinces();
-    fetchUniversityTypes();
-  }, []);
-
   return (
-    <main className="container font-khBtB w-[70%] text-gray-900  m-auto ">
+    <main className=" font-khBtB w-[95%] md:w-[70%] text-gray-900  m-auto ">
       <div className="flex flex-col gap-2 mt-5">
         <h1 className="text-2xl font-bold ">បន្ថែមសកលវិទ្យាល័យ</h1>
         <h2 className="text-xl font-bold ">ព័ត៌មានសាកលវិទ្យាល័យ</h2>
@@ -164,7 +124,13 @@ export default function addUniversity() {
                 className="flex items-center justify-center w-full h-full"
               >
                 {isLogo ? (
-                  <img src={logoURL} alt="Logo" className="h-full rounded-lg" />
+                  <Image
+                    width={500}
+                    height={500}
+                    src={logoURL}
+                    alt="Logo"
+                    className="h-full rounded-lg w-auto"
+                  />
                 ) : (
                   <div className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                     <HiOutlineCloudUpload
@@ -245,9 +211,6 @@ export default function addUniversity() {
             onChange={(e) => setUniversityType(e.target.value)}
             required
           >
-            <option selected disabled hidden>
-              ជ្រើសរើសប្រភេទ
-            </option>
             {universityTypes.map((universityType) => {
               return (
                 <option key={universityType.id} value={universityType.id}>
@@ -306,10 +269,12 @@ export default function addUniversity() {
                 className="flex items-center justify-center w-full h-full"
               >
                 {isImage ? (
-                  <img
+                  <Image
+                    width={500}
+                    height={500}
                     src={imageURL}
                     alt="Logo"
-                    className="h-full rounded-lg"
+                    className="h-full rounded-lg w-auto "
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -472,4 +437,45 @@ export default function addUniversity() {
       </form>
     </main>
   );
+}
+
+//static fetch Data
+export async function getStaticProps() {
+  let universityTypes = [];
+  let provinces = [];
+
+  const api = "http://127.0.0.1:8000/api";
+
+  // Get university types from api
+  await fetch(api + "/university_types", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      universityTypes = res.data;
+    })
+    .catch((err) => console.log(err));
+
+  // Get provinces from api
+  await fetch(api + "/provinces", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      provinces = res.data;
+    })
+    .catch((err) => console.log(err));
+
+  return {
+    props: {
+      universityTypes,
+      provinces,
+    },
+  };
 }

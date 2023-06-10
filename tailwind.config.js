@@ -1,19 +1,23 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/tw-elements/dist/js/**/*.js"
-
+    "./node_modules/tw-elements/dist/js/**/*.js",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        khBtB: ["var(--Battambang)", ...fontFamily.sans],
+      },
       borderColor: {
         "bg-card": "linear-gradient(163deg, #00ff75 0%, #3700ff 100%)",
       },
       backgroundImage: {
         "bg-major": "url('/CS.png')",
-        "bg-aboutUs": "url('https://wallpaperaccess.com/full/1426870.png')",
         background:
           "linear-gradient(240deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 50%, rgba(0,212,255,1) 100%)",
         "bg-banner":
@@ -35,11 +39,6 @@ module.exports = {
         "70percent": "70%",
         "30percent": "30%",
         "500px": "43.75rem",
-      },
-
-      fontFamily: {
-        kh: "Noto Sans Khmer",
-        khBtB: "Battambang,Arial, Helvetica, sans-seri",
       },
       colors: {
         "banner-color": "rgb(26,34,56)",
@@ -63,7 +62,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tw-elements/dist/plugin.cjs")
-  ],
+  plugins: [require("tw-elements/dist/plugin.cjs")],
 };

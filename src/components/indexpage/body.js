@@ -9,14 +9,11 @@ const typesOpetions = [
   { value: "Private", text: "ឯកជន" },
 ];
 
-function Body({ universitiesData, provincesData, universityTypes  }) {
-
-  const [locationsSelete, setLocationsSelete] = useState(
-    // locationOptions[0].value
-  );
-  const [typeSelete, setTypeSelete] = useState(
-    // typesOpetions[0].value
-    );
+function Body({ universitiesData, provincesData, universityTypes }) {
+  const [locationsSelete, setLocationsSelete] = useState();
+  // locationOptions[0].value
+  const [typeSelete, setTypeSelete] = useState();
+  // typesOpetions[0].value
   const [universityFilter, setUniversityFilter] = useState([]);
 
   const handleLocations = (e) => {
@@ -75,16 +72,16 @@ function Body({ universitiesData, provincesData, universityTypes  }) {
 
   return (
     <>
-      <div className="w-fit flex flex-wrap gap-2 p-2 bg-opacity-20 justify-center m-auto rounded shadow-gray-500 shadow-sm">
+      <div className=" w-fit flex flex-wrap gap-2 p-2 bg-opacity-20 justify-center m-auto rounded shadow-gray-500 shadow-sm">
         <div className="flex flex-col bg-location-color gap-1 rounded p-2">
-          <h5 className="text-h5 font-bold text-black font-kh">ទីតាំង</h5>
+          <h5 className="text-h5 font-khBtB text-white">ទីតាំង</h5>
           <select
             value={locationsSelete}
             onChange={handleLocations}
-            className="select-locations font-kh  py-2 px-4 w-48 cursor-pointer rounded"
+            className="select-locations font-khBtB  py-2 px-4 w-48 cursor-pointer rounded"
           >
-            {provincesData.map((localOption) => (
-              <option key={localOption.id} value={localOption.name_km}>
+            {provincesData?.map((localOption) => (
+              <option key={localOption.id} value={localOption.id}>
                 {localOption.name_km}
               </option>
             ))}
@@ -102,14 +99,14 @@ function Body({ universitiesData, provincesData, universityTypes  }) {
           </select> */}
         </div>
         <div className="flex flex-col bg-location-color gap-1 rounded p-2">
-          <h5 className="text-h5 font-bold text-black font-kh">ប្រភេទ</h5>
+          <h5 className="text-h5 font-khBtB text-white">ប្រភេទ</h5>
           <select
             value={typeSelete}
             onChange={handleType}
-            className="select-types font-kh py-2 px-4 w-48 cursor-pointer rounded"
+            className="select-types font-khBtB py-2 px-4 w-48 cursor-pointer rounded"
           >
-            {universityTypes.map((typeOption) => (
-              <option key={typeOption.id} value={(typeOption.type_km)}>
+            {universityTypes?.map((typeOption) => (
+              <option key={typeOption.id} value={typeOption.type_km}>
                 {typeOption.type_km}
               </option>
             ))}
@@ -117,10 +114,10 @@ function Body({ universitiesData, provincesData, universityTypes  }) {
         </div>
       </div>
 
-      <div className="w-11/12 sm:w-4/5 flex flex-col m-auto body">
-        <div className="flex flex-col">
-          <span className="font-kh text-lg font-bold pt-5">សាកលវិទ្យាល័យ</span>
-          <span className="font-kh pb-4">
+      <div className="w-11/12 sm:w-4/5 flex flex-col m-auto body ">
+        <div className="flex flex-col text-gray-200">
+          <span className="font-khBtB text-lg font-semibold pt-5">សាកលវិទ្យាល័យ</span>
+          <span className="font-khBtB pb-4">
             មានចំនួន: {universityFilter?.length}
           </span>
         </div>
